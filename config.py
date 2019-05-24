@@ -50,7 +50,7 @@ class TestingConfig(Config):
     TESTING = True
     CELERY_ALWAYS_EAGER = True
     SQLALCHEMY_DATABASE_URI = getenv(
-        'TEST_DATABASE_URI', default='postgresql://localhost/activo_test')
+        'TEST_DATABASE_URI', default='postgresql://localhost/insurance_test')
     FLASK_ENV = 'testing'
 
 

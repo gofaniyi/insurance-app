@@ -1,0 +1,30 @@
+env:
+  global:
+    CC_TEST_REPORTER_ID=17177feea1988ceb9c70cf3ea2f9f8ca9f5ad14b684e94ea30b12a284d005c2d
+
+language: python
+
+python:
+  - "3.6"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database insurance_test;' -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter.bin
+  - chmod +x ./cc-test-reporter.bin
+  - ./cc-test-reporter.bin before-build
+
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+
+# command to run tests
+script:
+  - pytest
+
+
+# Pipe the coverage data to Code Climate
+after_script:
+  - ./cc-test-reporter.bin after-build --exit-code $TRAVIS_TEST_RESULT

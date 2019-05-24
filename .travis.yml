@@ -1,3 +1,7 @@
+env:
+  global:
+    CC_TEST_REPORTER_ID=17177feea1988ceb9c70cf3ea2f9f8ca9f5ad14b684e94ea30b12a284d005c2d
+    
 language: python
 
 python:
@@ -11,10 +15,6 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-
-env:
-  global:
-    CC_TEST_REPORTER_ID=17177feea1988ceb9c70cf3ea2f9f8ca9f5ad14b684e94ea30b12a284d005c2d
 
 # command to install dependencies
 install:

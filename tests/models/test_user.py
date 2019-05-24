@@ -60,3 +60,7 @@ class TestUserModel:
         assert user is None
         assert is_authenticated == False
 
+    def test_user_logout(self, init_db):
+        status = User.logout(fake.alphanumeric())
+        assert status == True
+

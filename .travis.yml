@@ -14,7 +14,7 @@ before_script:
 
 env:
   global:
-    CC_TEST_REPORTER_ID=${CODE_CLIMATE_TEST_ID}
+    CC_TEST_REPORTER_ID=17177feea1988ceb9c70cf3ea2f9f8ca9f5ad14b684e94ea30b12a284d005c2d
 
 # command to install dependencies
 install:

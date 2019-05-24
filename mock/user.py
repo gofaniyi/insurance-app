@@ -1,0 +1,2 @@
+USER_ONE_VALID_PASSWORD='samplePassword1234!@#$'
+INVALID_PASSWORD='wrongPassword'

@@ -1,0 +1,14 @@
+.idea/
+.env
+.vscode
+.DS_STORE
+__pycache__
+venv
+.pytest_cache
+.pytest_cache/v/cache
+*.pyc
+insurance_db
+.coverage*
+htmlcov
+.coverage*
+

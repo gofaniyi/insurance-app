@@ -35,7 +35,28 @@ class AuthToken:
         try:
             payload = jwt.decode(auth_token, AppConfig.JWT_SECRET_KEY)
             return payload['sub']
-        except jwt.ExpiredSignatureError:
-            raise ValidationError('Signature expired. Please log in again.')
-        except jwt.InvalidTokenError:
-            raise ValidationError('Invalid token. Please log in again.')
+        except (
+                ValueError,
+                TypeError,
+                jwt.ExpiredSignatureError,
+                jwt.DecodeError,
+                jwt.InvalidTokenError,
+                jwt.InvalidSignatureError,
+                jwt.InvalidAlgorithmError,
+                jwt.InvalidIssuerError,
+        ) as error:
+            exception_mapper = {
+                ValueError: ('Authorization failed. Please contact support.', 500),
+                TypeError: ('Authorization failed. Please contact support.', 500),
+                jwt.ExpiredSignatureError: ('Token expired. Please login to get a new token',
+                                            401),
+                jwt.DecodeError: ('Authorization failed due to an Invalid token.', 401),
+                jwt.InvalidTokenError: ('Authorization failed due to an Invalid token.', 401),
+                jwt.InvalidIssuerError: ('Cannot verify the token provided as the expected issuer does not match.', 401),
+                jwt.InvalidAlgorithmError: ('Cannot verify the token provided as it was signed with a different algorithm.',
+                                            401),
+                jwt.InvalidSignatureError: ('Cannot verify the signature of the token provided as it was signed by a non matching private key', 500)
+            }
+            message, status_code = exception_mapper.get(
+                type(error), ('Authorization failed. Please contact support.', 500))
+            raise ValidationError({'message': message}, status_code)

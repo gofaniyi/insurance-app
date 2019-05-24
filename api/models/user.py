@@ -14,6 +14,8 @@ from api.bcrypt import bcrypt
 from api.auth import AuthToken
 
 from .base import BaseModel
+from .suspended_token import SuspendedToken
+
 
 class User(BaseModel):
     """Class for user db table."""
@@ -35,9 +37,14 @@ class User(BaseModel):
     def token(self):
         return AuthToken.encode_auth_token(self.id).decode('utf-8')
 
-
-    def logout(self):
-        pass
+    @staticmethod
+    def logout(token=''):
+        param = {
+            'token' : token
+        }
+        suspended_token = SuspendedToken(**param)
+        suspended_token.save()
+        return True
 
     
     @staticmethod

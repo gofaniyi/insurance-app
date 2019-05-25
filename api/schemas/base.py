@@ -3,9 +3,12 @@ from marshmallow import Schema, fields
 
 from exception.validation import ValidationError
 
+from api.constants.messages import ERROR_MESSAGES
+
 
 class BaseSchema(Schema):
     """Base marshmallow schema with common attributes."""
+    
     id = fields.String(dump_only=True)
 
     created_at = fields.DateTime(dump_only=True, dump_to='createdAt')
@@ -15,9 +18,7 @@ class BaseSchema(Schema):
         """Helper function to load raw json request data into schema"""
         data, errors = self.loads(data)
 
-        if errors:
-            raise ValidationError(
-                dict(errors=errors, message='An error occurred'), 400)
+        BaseSchema.raise_errors(errors)
 
         return data
 
@@ -25,11 +26,15 @@ class BaseSchema(Schema):
         """Helper function to load python objects into schema"""
         data, errors = self.load(data, partial=partial)
 
-        if errors:
-            raise ValidationError(
-                dict(errors=errors, message='An error occurred'), 400)
+        BaseSchema.raise_errors(errors)
 
         return data
+
+    @staticmethod
+    def raise_errors(errors):
+        if errors:
+            raise ValidationError(
+                dict(errors=errors, message=ERROR_MESSAGES['DEFAULT']), 400)
 
 
 def common_args(**kwargs):
@@ -47,6 +52,6 @@ def common_args(**kwargs):
         "required": True,
         "validate": kwargs.get('validate'),
         "error_messages": {
-            'required': 'This field is required'
+            'required': ERROR_MESSAGES['REQUIRED_FIELD']
         }
     }

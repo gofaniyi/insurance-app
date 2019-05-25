@@ -16,13 +16,41 @@ from api.decorators import token_required
 from api.constants.messages import SUCCESS_MESSAGES, ERROR_MESSAGES
 
 
-@api.route('/users/login')
-class UserLoginResource(Resource):
-    """Resource class for migrating people data into activo"""
+@api.route('/users/signup')
+class UserSignUpResource(Resource):
+    """Resource class for user signup"""
 
     def post(self):
-        """POST method for updating activo user table with andela personnel
-        records
+        """POST method for user signup
+
+        Returns:
+            tuple: Success response with 201 status code
+        """
+        request_data = request.get_json()
+
+        user_schema = UserSchema()
+        user_data = user_schema.load_object_into_schema(request_data)
+     
+        user_data.pop('confirm_password')
+
+        user = User(**user_data)
+        user.save()
+
+        return {
+            'status': 'success',
+            'message': SUCCESS_MESSAGES['USER_SIGNUP'],
+            'token' : user.token,
+            'user' : dict(id=user.id,email=user.email)
+        }, 201
+
+
+
+@api.route('/users/login')
+class UserLoginResource(Resource):
+    """Resource class for user login"""
+
+    def post(self):
+        """POST method for user login
 
         Returns:
             tuple: Success response with 200 status code
@@ -37,7 +65,8 @@ class UserLoginResource(Resource):
             return {
                 'status': 'success',
                 'message': SUCCESS_MESSAGES['USER_LOGIN'],
-                'token' : user.token
+                'token' : user.token,
+                'user' : dict(id=user.id,email=user.email)
             }, 200
         else:
             return {
@@ -50,12 +79,11 @@ class UserLoginResource(Resource):
 
 @api.route('/users/logout')
 class UserLogoutResource(Resource):
-    """Resource class for migrating people data into activo"""
+    """Resource class for user logout"""
 
     @token_required
     def post(self):
-        """POST method for updating activo user table with andela personnel
-        records
+        """POST method for user logout
 
         Returns:
             tuple: Success response with 200 status code

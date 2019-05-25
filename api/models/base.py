@@ -65,7 +65,7 @@ class BaseModel(db.Model):
             raise ValidationError(
                 {
                     'message':
-                    f'{re.sub(r"(?<=[a-z])[A-Z]+",lambda x: f" {x.group(0).lower()}" , cls.__name__)} not found'  # noqa
+                    f'{re.sub(r"(?<=[a-z])[A-Z]+",lambda x: f" {x.group(0).lower()}" , cls.__name__)} not found'
                 },
                 404)
 
@@ -88,7 +88,7 @@ class BaseModel(db.Model):
 
     def delete(self):
         """
-        Soft delete a model instance.
+        Delete a model instance.
         """
         db.session.delete(self)
         db.session.commit()
@@ -127,7 +127,6 @@ class BaseModel(db.Model):
         `Model.get` method when verifying existence is all that is required.
 
         Examples:
-            Asset.exists(asset_id)
             User.exists(token_id, 'token_id')
 
         Args:

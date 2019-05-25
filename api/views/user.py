@@ -62,15 +62,9 @@ class UserLogoutResource(Resource):
         """
         token = get_auth_token(request)
 
-        status = User.logout(token)
+        User.logout(token)
 
-        if status:
-            return {
-                'status': 'success',
-                'message': SUCCESS_MESSAGES['USER_LOGOUT'],
-            }, 200
-        else:
-            return {
-            'status': 'fail',
-            'message': 'User logout attempt failed',
-        }, 400
+        return {
+            'status': 'success',
+            'message': SUCCESS_MESSAGES['USER_LOGOUT'],
+        }, 200

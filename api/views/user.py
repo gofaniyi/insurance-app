@@ -13,6 +13,8 @@ from api.schemas.user import UserSchema
 from api.views.utils import get_auth_token
 from api.decorators import token_required
 
+from api.constants.messages import SUCCESS_MESSAGES, ERROR_MESSAGES
+
 
 @api.route('/users/login')
 class UserLoginResource(Resource):
@@ -34,14 +36,14 @@ class UserLoginResource(Resource):
         if user and is_authenticated:
             return {
                 'status': 'success',
-                'message': 'User logged in successfully',
+                'message': SUCCESS_MESSAGES['USER_LOGIN'],
                 'token' : user.token
             }, 200
         else:
             return {
             'status': 'fail',
-            'message': 'User login attempt failed',
-            'error' : 'Email or password is incorrect'
+            'message': ERROR_MESSAGES['USER_LOGIN'],
+            'error' : ERROR_MESSAGES['INVALID_LOGIN_CREDENTIALS']
         }, 401
 
         
@@ -58,7 +60,6 @@ class UserLogoutResource(Resource):
         Returns:
             tuple: Success response with 200 status code
         """
-        import pdb; pdb.set_trace()
         token = get_auth_token(request)
 
         status = User.logout(token)
@@ -66,10 +67,10 @@ class UserLogoutResource(Resource):
         if status:
             return {
                 'status': 'success',
-                'message': 'User logged out successfully',
+                'message': SUCCESS_MESSAGES['USER_LOGOUT'],
             }, 200
         else:
             return {
             'status': 'fail',
             'message': 'User logout attempt failed',
-        }, 401
+        }, 400

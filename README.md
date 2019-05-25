@@ -1,4 +1,4 @@
-## Britcore Assessment
+## Insurance API
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/ddb10332ab0cce466344/maintainability)](https://codeclimate.com/github/gofaniyi/insurance-api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ddb10332ab0cce466344/test_coverage)](https://codeclimate.com/github/gofaniyi/insurance-api/test_coverage)

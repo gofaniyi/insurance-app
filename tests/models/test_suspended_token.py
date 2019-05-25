@@ -7,7 +7,7 @@ from tests.base import fake
 
 from datetime import datetime as dt
 
-class TestSuspendedModel:
+class TestSuspendedTokenModel:
 
     def test_save(self, init_db):
         """Test for creating a new suspended_token"""
@@ -32,7 +32,7 @@ class TestSuspendedModel:
         new_suspended_token.delete()
         assert SuspendedToken.get(new_suspended_token.id) == None
 
-    def test_user_model_string_representation(self, init_db, new_suspended_token):
+    def test_model_string_representation(self, init_db, new_suspended_token):
         """ Should compute the string representation of a suspended_token
 
         Args:

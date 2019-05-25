@@ -13,7 +13,8 @@ ERROR_MESSAGES = {
     'NOT_STRONG_PASSWORD' : 'Password should be at least 8 characters',
     'EMAIL_EXISTS' : 'Email already exist',
     'EMPTY_PAYLOAD' : 'No valid field(s) in request body',
-    'REQUIRED_FIELD' : 'This field is required'
+    'REQUIRED_FIELD' : 'This field is required',
+    'COMPANY_EXISTS' : 'Company already exist'
 }
 
 

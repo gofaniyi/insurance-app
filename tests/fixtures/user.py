@@ -6,8 +6,9 @@ from api.models import User
 
 
 @pytest.fixture(scope='module')
-def new_user(app):
+def new_user(app, new_company):
     params = {
+        'company_id'  : new_company.id,
         'email': fake.email(),
         'password' : fake.password()
     }
@@ -16,8 +17,9 @@ def new_user(app):
 
 
 @pytest.fixture(scope='module')
-def user_one(app):
+def user_one(app, new_company):
     params = {
+        'company_id' : new_company.id,
         'email': fake.email(),
         'password' : 'samplePassword1234!@#$'
     }

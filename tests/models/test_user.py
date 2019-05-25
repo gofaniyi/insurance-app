@@ -8,9 +8,10 @@ from mock.user import USER_ONE_VALID_PASSWORD, INVALID_PASSWORD
 
 class TestUserModel:
 
-    def test_save(self, init_db):
+    def test_save(self, init_db, new_company):
         """Test for creating a new user"""
         params = {
+            'company_id' : new_company.id,
             'email': fake.email(),
             'password' : fake.password()
         }
@@ -31,13 +32,13 @@ class TestUserModel:
         new_user.delete()
         assert User.get(new_user.id) == None
 
-    def test_user_model_string_representation(self, init_db, new_user):
+    def test_model_string_representation(self, init_db, new_user):
         """ Should compute the string representation of a user
 
         Args:
             new_user (object): Fixture to create a new user
         """
-        assert repr(new_user) == f'<User {new_user.email}>'
+        assert repr(new_user) == f'<User: {new_user.email}>'
 
 
     def test_user_authenticate_with_right_credentials_succeeds(self, init_db, user_one):

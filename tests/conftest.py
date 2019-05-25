@@ -31,7 +31,8 @@ pytest_plugins = [
     "tests.fixtures.user",
     "tests.fixtures.attribute",
     "tests.fixtures.risk_type",
-    "tests.fixtures.suspended_token"
+    "tests.fixtures.suspended_token",
+    "tests.fixtures.company"
 ]
 
 

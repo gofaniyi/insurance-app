@@ -66,3 +66,26 @@ class UserValidator:
             {
                 'message': ERROR_MESSAGES['PASSWORDS_MISMATCH']
             }, 400)
+
+
+class CompanyValidator:
+    """Validate company details"""
+
+    @classmethod
+    def validate(cls, data):
+        """Validate company fields"""
+        
+        if len(data) < 1:
+            raise MarshValidationError(ERROR_MESSAGES['EMPTY_PAYLOAD'])
+
+        CompanyValidator.validate_name_exists(data.get('email'))
+        
+
+    @staticmethod
+    def validate_name_exists(name):
+        company = Company.filter(name=name)
+        if company:
+            raise ValidationError(
+            {
+                'message': ERROR_MESSAGES['COMPANY_EXISTS']
+            }, 409)

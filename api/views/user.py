@@ -40,7 +40,7 @@ class UserSignUpResource(Resource):
             'status': 'success',
             'message': SUCCESS_MESSAGES['USER_SIGNUP'],
             'token' : user.token,
-            'user' : dict(id=user.id,email=user.email)
+            'user' : user_schema.dump(user).data
         }, 201
 
 
@@ -61,12 +61,15 @@ class UserLoginResource(Resource):
         user, is_authenticated = User.authenticate(
                 email=request_data.get('email'), password=request_data.get('password')
               )
+              
+        user_schema = UserSchema(exclude=['password', 'confirm_password'])
+
         if user and is_authenticated:
             return {
                 'status': 'success',
                 'message': SUCCESS_MESSAGES['USER_LOGIN'],
                 'token' : user.token,
-                'user' : dict(id=user.id,email=user.email)
+                'user' : user_schema.dump(user).data
             }, 200
         else:
             return {

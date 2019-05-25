@@ -9,7 +9,7 @@ from api.constants.messages import ERROR_MESSAGES
 class BaseSchema(Schema):
     """Base marshmallow schema with common attributes."""
     
-    id = fields.String(dump_only=True)
+    id = fields.Integer(dump_only=True)
 
     created_at = fields.DateTime(dump_only=True, dump_to='createdAt')
     updated_at = fields.DateTime(dump_only=True, dump_to='updatedAt')

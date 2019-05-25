@@ -7,13 +7,11 @@ from exception.validation import ValidationError
 
 from config import AppConfig
 
-# Database
-from api.database import db
 from api.bcrypt import bcrypt
 
 from api.auth import AuthToken
 
-from .base import BaseModel
+from .base import BaseModel, db
 from .suspended_token import SuspendedToken
 
 
@@ -25,13 +23,22 @@ class User(BaseModel):
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
+    company_id = db.Column(db.Integer, db.ForeignKey('companies.id'), nullable=False)
+    company = db.relationship('Company', backref='users')
 
-    def __init__(self, email, password, admin=False):
-        self.email = email
+
+    def set_password(self):
         self.password = bcrypt.generate_password_hash(
-            password, AppConfig.BCRYPT_LOG_ROUNDS
+            self.password, AppConfig.BCRYPT_LOG_ROUNDS
         ).decode()
-        self.admin = admin
+
+    
+    def save(self):
+        """
+        Override to save a user model instance
+        """
+        self.set_password()
+        return super(User, self).save()
 
     @property
     def token(self):
@@ -66,4 +73,4 @@ class User(BaseModel):
 
 
     def __repr__(self):
-        return f'<User {self.email}>'
+        return f'<User: {self.email}>'

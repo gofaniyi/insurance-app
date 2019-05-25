@@ -23,7 +23,7 @@ class TestUserSignUpResource:
     """
 
     def test_user_signup_with_valid_data_succeeds(
-        self, client, init_db):
+        self, client, init_db, new_company):
         """
             Should return an 200 status code and new user data when data provided
             in request is valid
@@ -32,6 +32,7 @@ class TestUserSignUpResource:
                 init_db(SQLAlchemy): fixture to initialize the test database
         """
         payload = {
+            'company_id' : new_company.id,
             'email' : fake.email(),
             'password' : USER_ONE_VALID_PASSWORD,
             'confirm_password' : USER_ONE_VALID_PASSWORD
@@ -46,11 +47,16 @@ class TestUserSignUpResource:
         assert data['status'] == 'success'
         assert data['message'] == SUCCESS_MESSAGES['USER_SIGNUP']
         assert AuthToken.decode_auth_token(data['token']) is not None
+
+        assert data['user']['id'] is not None
         assert data['user']['email'] == payload['email']
+
+        assert data['user']['company']['id'] == new_company.id
+        assert data['user']['company']['name'] == new_company.name
 
     
     def test_user_signup_with_non_matching_passwords_fails(
-        self, client, init_db):
+        self, client, init_db, new_company):
         """
             Should return an 200 status code and new user data when data provided
             in request is valid
@@ -61,6 +67,7 @@ class TestUserSignUpResource:
 
         #payload with passwords not matching
         payload = {
+            'company_id' : new_company.id,
             'email' : fake.email(),
             'password' : USER_ONE_VALID_PASSWORD,
             'confirm_password' : INVALID_PASSWORD
@@ -77,7 +84,7 @@ class TestUserSignUpResource:
 
 
     def test_user_signup_with_invalid_email_address_fails(
-        self, client, init_db):
+        self, client, init_db, new_company):
         """
             Should return an 200 status code and new user data when data provided
             in request is valid
@@ -88,6 +95,7 @@ class TestUserSignUpResource:
 
         #payload with invalid email address
         payload = {
+            'company_id' : new_company.id,
             'email' : fake.first_name(),
             'password' : USER_ONE_VALID_PASSWORD,
             'confirm_password' : USER_ONE_VALID_PASSWORD
@@ -141,6 +149,7 @@ class TestUserSignUpResource:
 
         #payload with invalid email address
         payload = {
+            'company_id' : user_one.company_id,
             'email' : user_one.email,
             'password' : USER_ONE_VALID_PASSWORD,
             'confirm_password' : USER_ONE_VALID_PASSWORD
@@ -158,7 +167,7 @@ class TestUserSignUpResource:
 
     
     def test_user_signup_with_not_strong_password_fails(
-        self, client, init_db):
+        self, client, init_db, new_company):
         """
             Should return an 200 status code and new user data when data provided
             in request is valid
@@ -169,6 +178,7 @@ class TestUserSignUpResource:
 
         #payload with not strong password
         payload = {
+            'company_id' : new_company.id,
             'email' : fake.email(),
             'password' : 'pass',
             'confirm_password' : 'pass'
@@ -211,7 +221,12 @@ class TestUserLoginResource:
         assert data['message'] == SUCCESS_MESSAGES['USER_LOGIN']
         assert data['token'] is not None
         assert user_one.id == AuthToken.decode_auth_token(data['token'])
-        assert data['user'] == dict(id=user_one.id,email=user_one.email)
+
+        assert data['user']['id'] == user_one.id
+        assert data['user']['email'] == user_one.email
+
+        assert data['user']['company']['id'] == user_one.company.id
+        assert data['user']['company']['name'] == user_one.company.name
 
     
     def test_can_login_with_wrong_password_fails(

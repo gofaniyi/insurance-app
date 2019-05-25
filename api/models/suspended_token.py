@@ -1,8 +1,6 @@
 from datetime import datetime as dt
 
-from .base import BaseModel
-
-from api.database import db
+from .base import BaseModel, db
 
 class SuspendedToken(BaseModel):
     """ Token Model for storing suspended JWT tokens"""

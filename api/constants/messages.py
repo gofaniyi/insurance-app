@@ -14,7 +14,12 @@ ERROR_MESSAGES = {
     'EMAIL_EXISTS' : 'Email already exist',
     'EMPTY_PAYLOAD' : 'No valid field(s) in request body',
     'REQUIRED_FIELD' : 'This field is required',
-    'COMPANY_EXISTS' : 'Company already exist'
+    'COMPANY_EXISTS' : 'Company already exist',
+    'EXISTS' : '{} already exist',
+    'PROVIDE_CUSTOM_ATTRIBUTES' : 'Please provide at least one attribute for this risk type',
+    'NOT_FOUND' : '{} not found',
+    'ATTRIBUTE_NOT_RELATED':
+        'attribute with the id of {attribute_id} is not related to the asset category of id {risk_type_id}',
 }
 
 
@@ -22,4 +27,7 @@ SUCCESS_MESSAGES = {
     'USER_LOGOUT' : 'User logged out successfully',
     'USER_LOGIN' : 'User logged in successfully',
     'USER_SIGNUP' : 'User signup successfully',
+    'RISK_TYPE_CREATED' : 'Risk Type created successfully',
+    'FETCHED' : '{} fetched successfully',
+    'UPDATED': '{} successfully updated',
 }

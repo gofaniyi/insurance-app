@@ -4,7 +4,7 @@ import re
 from marshmallow import ValidationError as MarshValidationError
 from exception.validation import ValidationError
 
-from api.models import User
+from api.models import User, Company
 from api.constants.messages import ERROR_MESSAGES
 
 
@@ -89,3 +89,40 @@ class CompanyValidator:
             {
                 'message': ERROR_MESSAGES['COMPANY_EXISTS']
             }, 409)
+
+
+def raise_error(error_key, *args, **kwargs):
+    """Raises a Marshmallow validation error
+
+    Args:
+        error_key (str): The key for accessing the correct error message
+        *args: Arguments taken by the serialization error message
+        **kwargs:
+            fields (list): The fields where the error will appear
+
+    Raises:
+        ValidationError: Marshmallow validation error
+    """
+    raise MarshValidationError(ERROR_MESSAGES[error_key].format(*args),
+                           kwargs.get('fields'))
+
+def string_length_validator(length):
+    """ Returns a function that checks data over a given length
+    Args:
+        length (Integer): Length a string must not exceed
+    Returns:
+        Function which validates length of the data
+    """
+
+    def length_validator(data):
+        """ Checks if data does not exceed a given length
+            Args:
+                data (String): data to be validated
+            Raises:
+                validation error if data exceeds a given length
+        """
+
+        if len(data) > length:
+            raise_error('string_length', length, fields=data)
+
+    return length_validator

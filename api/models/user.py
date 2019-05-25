@@ -42,7 +42,14 @@ class User(BaseModel):
 
     @property
     def token(self):
-        return AuthToken.encode_auth_token(self.id).decode('utf-8')
+        payload = {
+            'id' : self.id,
+            'email' : self.email,
+            'company'  : {
+                'id' : self.company.id,
+            }
+        }
+        return AuthToken.encode_auth_token(payload).decode('utf-8')
 
     @staticmethod
     def logout(token=''):

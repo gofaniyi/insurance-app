@@ -39,8 +39,10 @@ class UserSignUpResource(Resource):
         return {
             'status': 'success',
             'message': SUCCESS_MESSAGES['USER_SIGNUP'],
-            'token' : user.token,
-            'user' : user_schema.dump(user).data
+            'data' : {
+                'token' : user.token,
+                'user' : user_schema.dump(user).data
+            }
         }, 201
 
 
@@ -68,8 +70,10 @@ class UserLoginResource(Resource):
             return {
                 'status': 'success',
                 'message': SUCCESS_MESSAGES['USER_LOGIN'],
-                'token' : user.token,
-                'user' : user_schema.dump(user).data
+                'data' : {
+                    'token' : user.token,
+                    'user' : user_schema.dump(user).data
+                }
             }, 200
         else:
             return {

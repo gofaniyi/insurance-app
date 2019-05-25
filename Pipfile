@@ -18,6 +18,8 @@ faker = "==1.0.4"
 marshmallow = "==2.16.0"
 coverage = "==4.5.3"
 cryptography = "*"
+humps = "==0.2.2"
+marshmallow-enum = "==1.4.1"
 
 [dev-packages]
 

@@ -16,15 +16,13 @@ class TestAuthToken:
         return self.generate_token(days=-1)
 
     def test_encode_auth_token(self):
-        """ tests that the method returns date in datetime format"""
         auth_token = self.generate_token()
         assert isinstance(auth_token, bytes) == True
 
     def test_decode_auth_token(self):
-        """ tests that the method returns start of the day's date"""
         auth_token = self.generate_token()
         decoded_token = AuthToken.decode_auth_token(auth_token)
-        assert decoded_token == 'sampleId'
+        assert decoded_token['sub'] == 'sampleId'
 
     def test_decode_expired_token_fails(self):
         auth_token = self.generate_expired_token()

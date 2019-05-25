@@ -7,7 +7,7 @@ from api.constants.messages import (ERROR_MESSAGES,)
 class AuthToken:
 
     @staticmethod
-    def encode_auth_token(user_id, days=1):
+    def encode_auth_token(user, days=1):
         """
         Generates the Auth Token
         """
@@ -15,7 +15,7 @@ class AuthToken:
             payload = {
                 'exp': dt.utcnow() + timedelta(days=days),
                 'iat': dt.utcnow(),
-                'sub': user_id
+                'sub': user
             }
             return jwt.encode(
                 payload,
@@ -34,7 +34,7 @@ class AuthToken:
         """
         try:
             payload = jwt.decode(auth_token, AppConfig.JWT_SECRET_KEY)
-            return payload['sub']
+            return payload
         except (
                 ValueError,
                 TypeError,

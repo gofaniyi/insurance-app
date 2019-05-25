@@ -2,13 +2,14 @@
 
 import re
 
+from flask import request
+
 from datetime import datetime as dt
 
 from api.database import db
 
 # validators
 from exception.validation import ValidationError
-
 
 class BaseModel(db.Model):
     """Mixin class with generic model operations."""
@@ -23,9 +24,13 @@ class BaseModel(db.Model):
         """
         Save a model instance
         """
+
         db.session.add(self)
         db.session.commit()
         return self
+
+    
+
 
     def update(self, **kwargs):
         """
@@ -33,6 +38,7 @@ class BaseModel(db.Model):
         """
         for field, value in kwargs.items():
             setattr(self, field, value)
+
         db.session.commit()
         return self
 
@@ -65,7 +71,7 @@ class BaseModel(db.Model):
             raise ValidationError(
                 {
                     'message':
-                    f'{re.sub(r"(?<=[a-z])[A-Z]+",lambda x: f" {x.group(0).lower()}" , cls.__name__)} not found'
+                    f'{re.sub(r"(?<=[a-z])[A-Z]+",lambda x: f" {x.group(0).lower()}" , (cls.__name__))} not found'
                 },
                 404)
 

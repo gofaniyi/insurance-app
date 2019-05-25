@@ -14,6 +14,6 @@ request = RequestMock()
 class TestUtilities:
     
     def test_get_auth_token(self):
-        """ tests that the method returns date in datetime format"""
+        """ tests that the method retrieves token from the request headers"""
         auth_token = get_auth_token(request)
         assert auth_token == token

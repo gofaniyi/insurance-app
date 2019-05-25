@@ -24,7 +24,11 @@ def token_required(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
         token = get_auth_token(request)
-        AuthToken.decode_auth_token(token)
+        decoded_token = AuthToken.decode_auth_token(token)
+        # setting the payload to the request object and can be accessed with \
+        # request.decoded_token from the view
+        setattr(request, 'decoded_token', decoded_token)
+
         return func(*args, **kwargs)
 
     return decorated_function

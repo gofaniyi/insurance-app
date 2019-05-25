@@ -10,7 +10,7 @@ from api.schemas.utils import CompanyValidator
 class CompanySchema(BaseSchema):
     """ Company model schema. """
     
-    name = fields.String(**common_args())
+    name = fields.String()
 
     @post_load
     def is_valid(self, data):

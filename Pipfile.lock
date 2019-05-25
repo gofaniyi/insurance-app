@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "010a7510fbbb5cff2dab2c5f39b7a39c23772b62d9c4e594cd5d2c64eefa1f86"
+            "sha256": "bdc39fc7acfa59b6b8af07f70a3ed13c6c8998dc7ca3c453ff1a076965c34b84"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -230,6 +230,14 @@
             ],
             "version": "==2.4.0"
         },
+        "humps": {
+            "hashes": [
+                "sha256:401de60fd73673b697086ba7c865966751c57b11cce57a37c9eabb3e75938417",
+                "sha256:777f7a17f6b20aa9cc078d63b56ebd66532c6b2c88b370f1d596d5205410f67c"
+            ],
+            "index": "pypi",
+            "version": "==0.2.2"
+        },
         "itsdangerous": {
             "hashes": [
                 "sha256:321b033d07f2a4136d3ec762eac9f16a10ccd60f53c0c91af90217ace7ba1f19",
@@ -297,6 +305,14 @@
             ],
             "index": "pypi",
             "version": "==2.16.0"
+        },
+        "marshmallow-enum": {
+            "hashes": [
+                "sha256:022400a2196ba55d5e6de67e6e4991e232190d25cbe26efa302c2e889e55ebf1",
+                "sha256:f5ad5dd187bbdca3165159db34e7b26f8a16e75e44aee5fc648ef18a2bd37b42"
+            ],
+            "index": "pypi",
+            "version": "==1.4.1"
         },
         "more-itertools": {
             "hashes": [

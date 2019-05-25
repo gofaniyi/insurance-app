@@ -25,11 +25,10 @@ class TestUserSignUpResource:
     def test_user_signup_with_valid_data_succeeds(
         self, client, init_db, new_company):
         """
-            Should return an 200 status code and new user data when data provided
-            in request is valid
             Parameters:
                 client(FlaskClient): fixture to get flask test client
                 init_db(SQLAlchemy): fixture to initialize the test database
+                new_company (Company): Fixture to create a new company
         """
         payload = {
             'company_id' : new_company.id,
@@ -42,10 +41,13 @@ class TestUserSignUpResource:
             f'{BASE_URL}/users/signup',
             data=json.dumps(payload), content_type='application/json')
 
-        data = json.loads(response.data.decode())
+        response_json = json.loads(response.data.decode())
         assert response.status_code == 201
-        assert data['status'] == 'success'
-        assert data['message'] == SUCCESS_MESSAGES['USER_SIGNUP']
+        assert response_json['status'] == 'success'
+        assert response_json['message'] == SUCCESS_MESSAGES['USER_SIGNUP']
+
+        data = response_json['data']
+
         assert AuthToken.decode_auth_token(data['token']) is not None
 
         assert data['user']['id'] is not None
@@ -58,11 +60,10 @@ class TestUserSignUpResource:
     def test_user_signup_with_non_matching_passwords_fails(
         self, client, init_db, new_company):
         """
-            Should return an 200 status code and new user data when data provided
-            in request is valid
             Parameters:
                 client(FlaskClient): fixture to get flask test client
                 init_db(SQLAlchemy): fixture to initialize the test database
+                new_company (Company): Fixture to create a new company
         """
 
         #payload with passwords not matching
@@ -86,11 +87,10 @@ class TestUserSignUpResource:
     def test_user_signup_with_invalid_email_address_fails(
         self, client, init_db, new_company):
         """
-            Should return an 200 status code and new user data when data provided
-            in request is valid
             Parameters:
                 client(FlaskClient): fixture to get flask test client
                 init_db(SQLAlchemy): fixture to initialize the test database
+                new_company (Company): Fixture to create a new company
         """
 
         #payload with invalid email address
@@ -115,8 +115,6 @@ class TestUserSignUpResource:
     def test_user_signup_with_empty_request_body_fails(
         self, client, init_db):
         """
-            Should return an 200 status code and new user data when data provided
-            in request is valid
             Parameters:
                 client(FlaskClient): fixture to get flask test client
                 init_db(SQLAlchemy): fixture to initialize the test database
@@ -140,11 +138,10 @@ class TestUserSignUpResource:
     def test_user_signup_with_existing_email_address_fails(
         self, client, init_db, user_one):
         """
-            Should return an 200 status code and new user data when data provided
-            in request is valid
             Parameters:
                 client(FlaskClient): fixture to get flask test client
                 init_db(SQLAlchemy): fixture to initialize the test database
+                user_one (User): Fixture to create a new user
         """
 
         #payload with invalid email address
@@ -169,11 +166,10 @@ class TestUserSignUpResource:
     def test_user_signup_with_not_strong_password_fails(
         self, client, init_db, new_company):
         """
-            Should return an 200 status code and new user data when data provided
-            in request is valid
             Parameters:
                 client(FlaskClient): fixture to get flask test client
                 init_db(SQLAlchemy): fixture to initialize the test database
+                new_company (Company): Fixture to create a new company
         """
 
         #payload with not strong password
@@ -204,23 +200,25 @@ class TestUserLoginResource:
     def test_can_login_with_right_credentials_succeeds(
             self, client, init_db, user_one):
         """
-        Should return an 200 status code and new user data when data provided
-        in request is valid
         Parameters:
             client(FlaskClient): fixture to get flask test client
             init_db(SQLAlchemy): fixture to initialize the test database
+            user_one (User): Fixture to create a new user
         """
 
         response = client.post(
             f'{BASE_URL}/users/login',
-            data=json.dumps(dict(email=user_one.email, password=USER_ONE_VALID_PASSWORD)), content_type='application/json')
+            data=json.dumps(dict(email=user_one.email, password=USER_ONE_VALID_PASSWORD)), 
+            content_type='application/json')
 
-        data = json.loads(response.data.decode())
+        response_json = json.loads(response.data.decode())
         assert response.status_code == 200
-        assert data['status'] == 'success'
-        assert data['message'] == SUCCESS_MESSAGES['USER_LOGIN']
+        assert response_json['status'] == 'success'
+        assert response_json['message'] == SUCCESS_MESSAGES['USER_LOGIN']
+
+        data = response_json['data']
         assert data['token'] is not None
-        assert user_one.id == AuthToken.decode_auth_token(data['token'])
+        assert user_one.id == AuthToken.decode_auth_token(data['token'])['sub']['id']
 
         assert data['user']['id'] == user_one.id
         assert data['user']['email'] == user_one.email
@@ -232,11 +230,10 @@ class TestUserLoginResource:
     def test_can_login_with_wrong_password_fails(
             self, client, init_db, user_one):
         """
-        Should return an 200 status code and new user data when data provided
-        in request is valid
         Parameters:
             client(FlaskClient): fixture to get flask test client
             init_db(SQLAlchemy): fixture to initialize the test database
+            user_one (User): Fixture to create a new user
         """
         
         response = client.post(
@@ -253,11 +250,10 @@ class TestUserLoginResource:
     def test_can_login_with_wrong_email_fails(
             self, client, init_db, user_one):
         """
-        Should return an 200 status code and new user data when data provided
-        in request is valid
         Parameters:
             client(FlaskClient): fixture to get flask test client
             init_db(SQLAlchemy): fixture to initialize the test database
+            user_one (User): Fixture to create a new user
         """
         
         response = client.post(
@@ -276,11 +272,10 @@ class TestUserLogoutResource:
     def test_user_logout_with_valid_token_succeeds(
             self, client, init_db, user_one):
         """
-        Should return an 200 status code and new user data when data provided
-        in request is valid
         Parameters:
             client(FlaskClient): fixture to get flask test client
             init_db(SQLAlchemy): fixture to initialize the test database
+            user_one (User): Fixture to create a new user
         """
         response = client.post(
             f'{BASE_URL}/users/logout', 
@@ -296,8 +291,6 @@ class TestUserLogoutResource:
     def test_user_logout_with_invalid_token_fails(
             self, client, init_db):
         """
-        Should return an 200 status code and new user data when data provided
-        in request is valid
         Parameters:
             client(FlaskClient): fixture to get flask test client
             init_db(SQLAlchemy): fixture to initialize the test database

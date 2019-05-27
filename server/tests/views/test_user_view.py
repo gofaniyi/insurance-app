@@ -33,8 +33,7 @@ class TestUserSignUpResource:
         payload = {
             'company_id' : new_company.id,
             'email' : fake.email(),
-            'password' : USER_ONE_VALID_PASSWORD,
-            'confirm_password' : USER_ONE_VALID_PASSWORD
+            'password' : USER_ONE_VALID_PASSWORD
         }
 
         response = client.post(
@@ -56,34 +55,6 @@ class TestUserSignUpResource:
         assert data['user']['company']['id'] == new_company.id
         assert data['user']['company']['name'] == new_company.name
 
-    
-    def test_user_signup_with_non_matching_passwords_fails(
-        self, client, init_db, new_company):
-        """
-            Parameters:
-                client(FlaskClient): fixture to get flask test client
-                init_db(SQLAlchemy): fixture to initialize the test database
-                new_company (Company): Fixture to create a new company
-        """
-
-        #payload with passwords not matching
-        payload = {
-            'company_id' : new_company.id,
-            'email' : fake.email(),
-            'password' : USER_ONE_VALID_PASSWORD,
-            'confirm_password' : INVALID_PASSWORD
-        }
-
-        response = client.post(
-            f'{BASE_URL}/users/signup',
-            data=json.dumps(payload), content_type='application/json')
-
-        data = json.loads(response.data.decode())
-        assert response.status_code == 400
-        assert data['status'] == 'error'
-        assert data['message'] == ERROR_MESSAGES['PASSWORDS_MISMATCH']
-
-
     def test_user_signup_with_invalid_email_address_fails(
         self, client, init_db, new_company):
         """
@@ -97,8 +68,7 @@ class TestUserSignUpResource:
         payload = {
             'company_id' : new_company.id,
             'email' : fake.first_name(),
-            'password' : USER_ONE_VALID_PASSWORD,
-            'confirm_password' : USER_ONE_VALID_PASSWORD
+            'password' : USER_ONE_VALID_PASSWORD
         }
 
         response = client.post(
@@ -148,8 +118,7 @@ class TestUserSignUpResource:
         payload = {
             'company_id' : user_one.company_id,
             'email' : user_one.email,
-            'password' : USER_ONE_VALID_PASSWORD,
-            'confirm_password' : USER_ONE_VALID_PASSWORD
+            'password' : USER_ONE_VALID_PASSWORD
         }
 
         response = client.post(
@@ -177,7 +146,6 @@ class TestUserSignUpResource:
             'company_id' : new_company.id,
             'email' : fake.email(),
             'password' : 'pass',
-            'confirm_password' : 'pass'
         }
 
         response = client.post(

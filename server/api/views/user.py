@@ -26,12 +26,11 @@ class UserSignUpResource(Resource):
         Returns:
             tuple: Success response with 201 status code
         """
+
         request_data = request.get_json()
 
         user_schema = UserSchema()
         user_data = user_schema.load_object_into_schema(request_data)
-     
-        user_data.pop('confirm_password')
 
         user = User(**user_data)
         user.save()
@@ -57,7 +56,7 @@ class UserLoginResource(Resource):
         Returns:
             tuple: Success response with 200 status code
         """
-
+        
         request_data = request.get_json()
 
         user, is_authenticated = User.authenticate(

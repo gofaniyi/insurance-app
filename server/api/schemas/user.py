@@ -12,7 +12,6 @@ class UserSchema(BaseSchema):
     """ User model schema. """
     email = fields.String(**common_args(validate=email_check))
     password = fields.String(**common_args(validate=password_check))
-    confirm_password = fields.String()
     company_id = fields.Integer(
         load_from='companyId',
         load_only=True, dump_to="companyId",)

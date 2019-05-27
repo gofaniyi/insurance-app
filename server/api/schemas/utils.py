@@ -44,8 +44,6 @@ class UserValidator:
         if len(data) < 1:
             raise MarshValidationError(ERROR_MESSAGES['EMPTY_PAYLOAD'])
 
-        UserValidator.validate_passwords(data.get('password'), data.get('confirm_password'))
-
         email = data.get('email')
         UserValidator.validate_email_exists(email)
         
@@ -58,14 +56,6 @@ class UserValidator:
             {
                 'message': ERROR_MESSAGES['EMAIL_EXISTS']
             }, 409)
-
-    @staticmethod
-    def validate_passwords(password, confirm_password):
-        if password != confirm_password:
-            raise ValidationError(
-            {
-                'message': ERROR_MESSAGES['PASSWORDS_MISMATCH']
-            }, 400)
 
 
 class CompanyValidator:

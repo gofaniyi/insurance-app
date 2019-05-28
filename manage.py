@@ -2,10 +2,11 @@
 
 # Third party Imports
 import sys
+import requests
 from os import environ
 
 import click
-from flask import jsonify, render_template, g
+from flask import jsonify, render_template, g, request
 from sqlalchemy import text
 
 # Local Imports
@@ -17,9 +18,13 @@ from api.database import db
 app = create_app(AppConfig)
 
 
-@app.route('/')
-def index():
-    return jsonify(dict(message='Welcome to the Insurance API'))
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def redirect_all(path):
+    if app.debug:
+        return requests.get('http://localhost:8080/{}'.format(path)).text
+    return render_template("index.html")
 
 
 @app.route('/health')

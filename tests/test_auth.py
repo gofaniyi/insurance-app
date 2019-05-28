@@ -17,14 +17,14 @@ class TestAuthToken:
 
     def test_encode_auth_token(self):
         auth_token = self.generate_token()
-        assert isinstance(auth_token, bytes) == True
+        assert isinstance(auth_token, str) == True
 
-    def test_decode_auth_token(self):
+    def test_decode_auth_token(self, init_db):
         auth_token = self.generate_token()
         decoded_token = AuthToken.decode_auth_token(auth_token)
         assert decoded_token['sub'] == 'sampleId'
 
-    def test_decode_expired_token_fails(self):
+    def test_decode_expired_token_fails(self, init_db):
         auth_token = self.generate_expired_token()
         with raises(ValidationError) as error:
             decoded_token = AuthToken.decode_auth_token(auth_token)

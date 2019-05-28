@@ -20,7 +20,7 @@ class CompanyResource(Resource):
         """
         Gets companies list
         """
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         companies = Company.filter()
 
         company_schema = CompanySchema(many=True)

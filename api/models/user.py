@@ -49,7 +49,7 @@ class User(BaseModel):
                 'id' : self.company.id,
             }
         }
-        return AuthToken.encode_auth_token(payload).decode('utf-8')
+        return AuthToken.encode_auth_token(payload)
 
     @staticmethod
     def logout(token=''):

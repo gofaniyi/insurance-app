@@ -26,8 +26,9 @@ def initialize_errorhandlers(application):
 
 def create_app(config=AppConfig):
     """Return app object given config object."""
-    app = Flask(__name__)
-    CORS(app)
+    app = Flask(__name__, static_folder = "./dist/static",
+            template_folder = "./dist")
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.config.from_object(config)
 
     app.url_map.strict_slashes = False

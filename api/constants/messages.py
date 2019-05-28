@@ -20,6 +20,8 @@ ERROR_MESSAGES = {
     'NOT_FOUND' : '{} not found',
     'ATTRIBUTE_NOT_RELATED':
         'attribute with the id of {attribute_id} is not related to the asset category of id {risk_type_id}',
+    'INPUT_CONTROL': 'Incorrect input control type provided, please provide one of {input_controls}',
+    'CHOICES_REQUIRED' : 'choices seperated by comma must be provided if multi choice inputs controls are selected'
 }
 
 

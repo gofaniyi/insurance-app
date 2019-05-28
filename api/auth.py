@@ -1,6 +1,7 @@
 import jwt
 from datetime import datetime as dt, timedelta
 from config import AppConfig
+from api.models.suspended_token import SuspendedToken
 from exception.validation import ValidationError
 from api.constants.messages import (ERROR_MESSAGES,)
 
@@ -17,11 +18,11 @@ class AuthToken:
                 'iat': dt.utcnow(),
                 'sub': user
             }
-            return jwt.encode(
+            return (jwt.encode(
                 payload,
                 AppConfig.JWT_SECRET_KEY,
                 algorithm='HS256'
-            )
+            )).decode('utf-8')
         except Exception as e:
             raise e
 
@@ -34,6 +35,9 @@ class AuthToken:
         """
         try:
             payload = jwt.decode(auth_token, AppConfig.JWT_SECRET_KEY)
+            suspended_token = SuspendedToken.filter(token=auth_token).first()
+            if suspended_token:
+                raise jwt.ExpiredSignature
             return payload
         except (
                 ValueError,

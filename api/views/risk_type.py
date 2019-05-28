@@ -32,6 +32,7 @@ class RiskTypeResource(Resource):
         Payload should have the following parameters:
             name(str): name of the risk-type
         """
+        # import pdb; pdb.set_trace()
         request_data = request.get_json()
 
         request_data['companyId'] = request.decoded_token.get('sub').get('company')['id']
@@ -56,7 +57,7 @@ class RiskTypeResource(Resource):
             raise ValidationError(
                 {'message': ERROR_MESSAGES['PROVIDE_CUSTOM_ATTRIBUTES']})
 
-        
+        # import pdb; pdb.set_trace()
         risk_type = risk_type.save()
 
         return {

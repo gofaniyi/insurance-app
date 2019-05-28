@@ -75,6 +75,7 @@ def remove_duplicate(choices):
 
     unique_choices = []
     for choice in choices:
+        choice = choice.strip()
         if choice and choice.lower() not in unique_choices:
             unique_choices.append(choice.lower())
 
@@ -102,7 +103,7 @@ def validate_choices(data):
     """
     Validates if choices is required or not
     """
-    input_control = data.get('input_control', '').lower()
+    input_control = data.get('input_control', ''). lower()
 
     choices = data.get('choices', [])
 

@@ -26,7 +26,7 @@ ERROR_MESSAGES = {
     'INPUT_CONTROL': 'Incorrect input control type provided, please provide one of {input_controls}',
     'CHOICES_REQUIRED' : 'choices seperated by comma must be provided if multi choice inputs controls are selected',
     'BAD_DATA_ATTRIBUTE' : 'There is so problems with the data attributes, See errors',
-    'DELETING_RELATED_OBJECTS' : "Can't remove {} due to related existing {} objects"
+    'DELETING_RELATED_OBJECTS' : "Can't remove a {} that has existing {}"
 }
 
 

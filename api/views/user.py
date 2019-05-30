@@ -56,7 +56,6 @@ class UserLoginResource(Resource):
         Returns:
             tuple: Success response with 200 status code
         """
-
         request_data = request.get_json()
 
         user, is_authenticated = User.authenticate(

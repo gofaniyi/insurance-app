@@ -35,7 +35,7 @@ class RiskSchema(BaseSchema):
     @post_load
     def validate_risk_data(self, data):
         """Return risk data object after successful loading of data"""
-        
+       
         risk_type_id = data.get('risk_type_id')
 
 

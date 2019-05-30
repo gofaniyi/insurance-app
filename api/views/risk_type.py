@@ -70,7 +70,6 @@ class RiskTypeResource(Resource):
         """
         Gets risk-type list
         """
-
         risk_types = RiskType.filter(company_id=request.decoded_token.get('sub').get('company')['id'])
 
         risk_type_schema = EagerLoadRiskTypeAttributesSchema(many=True)
@@ -112,7 +111,6 @@ class SingleRiskTypeResource(Resource):
         """
         Delete a single risk type
         """
-
         risk_type = RiskType.get_or_404(risk_type_id)
 
         risk_type.delete()

@@ -27,6 +27,12 @@ class RiskTypeSchema(BaseSchema):
         only=['id', 'name'],
         dump_to="company")
 
+    risks = fields.Nested(
+        "RiskSchema",
+        many=True,
+        load_from="risks",
+        dump_to="risks")
+
     risks_count = fields.Integer(dump_to='risksCount', dump_only=True)
 
 

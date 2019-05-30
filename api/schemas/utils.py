@@ -50,12 +50,7 @@ class UserValidator:
 
     @staticmethod
     def validate_email_exists(email):
-        user = User.get_by_email(email=email)
-        if user:
-            raise ValidationError(
-            {
-                'message': ERROR_MESSAGES['EMAIL_EXISTS']
-            }, 409)
+        validate_exist(User, 'EMAIL_EXISTS', email=email)
 
 
 class CompanyValidator:
@@ -73,13 +68,16 @@ class CompanyValidator:
 
     @staticmethod
     def validate_name_exists(name):
-        company = Company.filter(name=name)
-        if company:
-            raise ValidationError(
-            {
-                'message': ERROR_MESSAGES['COMPANY_EXISTS']
-            }, 409)
+        validate_exist(Company, 'COMPANY_EXISTS', name=name)
 
+
+def validate_exist(model, error_key, **kwargs):
+    obj = model.filter(**kwargs).first()
+    if obj:
+        raise ValidationError(
+        {
+            'message': ERROR_MESSAGES[error_key]
+        }, 409)
 
 def raise_error(error_key, *args, **kwargs):
     """Raises a Marshmallow validation error

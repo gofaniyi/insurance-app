@@ -19,6 +19,7 @@ def parse_attributes_data(risk_type, attributes_schema_data,
         risk_type_id (int): The risk type Id
 
     """
+    risk_type.attributes.delete()
 
     for each in attributes_schema_data:
         risk_type.attributes.append(each)

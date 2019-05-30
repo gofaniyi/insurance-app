@@ -18,6 +18,15 @@ def new_risk_type(app, new_company):
 
 
 @pytest.fixture(scope='module')
+def new_risk_type1(app, new_company):
+    params = {
+        'name': fake.industry(),
+        'company_id' : new_company.id
+    }
+    risk_type = RiskType(**params)
+    return risk_type.save()
+
+@pytest.fixture(scope='module')
 def new_risk_type_with_attribute(app, new_company):
     params = {
         'name': fake.industry(),
@@ -29,6 +38,24 @@ def new_risk_type_with_attribute(app, new_company):
     attribute = Attribute(
             _key='model',
             label='model',
+            is_required=False,
+            input_control='text',
+            choices='choice')
+    risk_type.attributes.append(attribute)
+    return risk_type.save()
+
+@pytest.fixture(scope='module')
+def new_risk_type_with_attribute1(app, new_company):
+    params = {
+        'name': fake.industry(),
+        'company_id' : new_company.id
+    }
+    risk_type = RiskType(**params)
+    risk_type = risk_type.save()
+
+    attribute = Attribute(
+            _key='branch',
+            label='branch',
             is_required=False,
             input_control='text',
             choices='choice')

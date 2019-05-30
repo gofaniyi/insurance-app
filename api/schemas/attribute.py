@@ -21,6 +21,7 @@ class InputControlChoiceEnum(Enum):
 
     TEXTAREA = "textarea"
     TEXT = "text"
+    NUMBER = "number"
     DROPDOWN = "dropdown"
     CHECKBOX = "checkbox"
     RADIOBUTTON = "radio button"
@@ -32,7 +33,7 @@ class InputControlChoiceEnum(Enum):
 
     @classmethod
     def get_singlechoice_fields(cls):
-        return [cls.TEXTAREA.value, cls.TEXT.value, cls.DATE.value]
+        return [cls.TEXTAREA.value, cls.TEXT.value, cls.DATE.value, cls.NUMBER.value]
 
     @classmethod
     def get_all_choices(cls):

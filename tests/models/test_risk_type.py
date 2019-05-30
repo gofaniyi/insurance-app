@@ -69,6 +69,17 @@ class TestRiskTypeModel:
         attribute.save()
         new_risk_type.save()
         assert new_risk_type.attributes[0] == attribute
+    
+    def test_delete(self, init_db, new_risk_type):
+        """
+            Test that a new risk-type gets deleted
+
+            Args:
+                init_db(SQLAlchemy): fixture to initialize the test database
+                new_risk_type (RiskType): Fixture to create a new risk-type
+        """
+        new_risk_type.delete()
+        assert RiskType.get(new_risk_type.id) is None
 
     def test_model_string_representation(self, init_db, new_risk_type):
         """ Should compute the string representation of an risk-type

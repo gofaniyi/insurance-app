@@ -1,5 +1,5 @@
 """
-Module of tests for risk-type endpoints
+Module of tests for company endpoints
 """
 from flask import json
 

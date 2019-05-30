@@ -27,6 +27,8 @@ class RiskTypeSchema(BaseSchema):
         only=['id', 'name'],
         dump_to="company")
 
+    risks_count = fields.Integer(dump_to='risksCount', dump_only=True)
+
 
     @post_load
     def validate_risk_type(self, data):

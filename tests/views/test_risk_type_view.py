@@ -48,7 +48,7 @@ class TestRiskTypeResource:
                 Authorization=f'Bearer {user_one.token}'
             ),
             content_type='application/json')
-
+            
         data = json.loads(response.data.decode())
         assert response.status_code == 201
         assert data['status'] == 'success'
@@ -173,7 +173,7 @@ class TestRiskTypeResource:
         assert data['message'] == SUCCESS_MESSAGES['RISK_TYPE_CREATED']
 
 
-    def test_create_risk_type_with_no_authorization_succeeds(
+    def test_create_risk_type_with_no_authorization_fails(
             self, client, init_db):
         """
         Parameters:
@@ -314,6 +314,46 @@ class TestSingleRiskTypeResource:
         assert data['companyId'] == user_one.company_id
 
 
+    def test_get_all_risks_under_a_risk_type_succeeds(
+            self, client, init_db,  user_one, new_multiple_risks):
+        """
+        Parameters:
+            client(FlaskClient): fixture to get flask test client
+            init_db(SQLAlchemy): fixture to initialize the test database
+            user_one (User): Fixture to create a new user
+            new_multiple_risk_types (RiskType): Fixture to create a new risk type
+        """
+        risk = new_multiple_risks[0]
+
+        response = client.get(
+            f'{BASE_URL}/risk-types/{risk.risk_type_id}/risks', 
+            headers=dict(
+                Authorization=f'Bearer {user_one.token}'
+            ))
+
+        data = json.loads(response.data.decode())
+        assert response.status_code == 200
+        assert data['status'] == 'success'
+        assert data['message'] == SUCCESS_MESSAGES['FETCHED'].format('Risks')
+
+    
+    def test_get_all_risk_under_a_risk_type_without_authentication_fails(
+            self, client, init_db):
+        """
+        Parameters:
+            client(FlaskClient): fixture to get flask test client
+            init_db(SQLAlchemy): fixture to initialize the test database
+        """
+
+        response = client.get(
+            f'{BASE_URL}/risk-types/2132/risks')
+
+        data = json.loads(response.data.decode())
+        assert response.status_code == 401
+        assert data['status'] == 'error'
+        assert data['message'] == ERROR_MESSAGES['JWT_INVALID_TOKEN']
+
+
     def test_update_a_risk_type_with_no_authorization_succeeds(
             self, client, init_db):
         """
@@ -398,13 +438,13 @@ class TestSingleRiskTypeResource:
 
 
     def test_update_a_risk_type_with_only_attributes_succeeds(
-            self, client, init_db, user_one, new_risk_type_with_attribute):
+            self, client, init_db, user_one, new_risk_type_with_attribute1):
         """
         Args:
             client(FlaskClient): fixture to get flask test client
             init_db(SQLAlchemy): fixture to initialize the test database
             user_one (User): Fixture to create a new user
-            new_risk_type_with_attribute (Risk Type): Fixture to create a new risk
+            new_risk_type_with_attribute1 (Risk Type): Fixture to create a new risk
         """
         payload = {
             'customAttributes' : [
@@ -425,7 +465,7 @@ class TestSingleRiskTypeResource:
         }
 
         response = client.put(
-            f'{BASE_URL}/risk-types/{new_risk_type_with_attribute.id}', 
+            f'{BASE_URL}/risk-types/{new_risk_type_with_attribute1.id}', 
             data=json.dumps(payload),
             headers=dict(
                 Authorization=f'Bearer {user_one.token}'
@@ -438,6 +478,71 @@ class TestSingleRiskTypeResource:
         assert response_json['message'] == SUCCESS_MESSAGES['UPDATED'].format('Risk type')
         
         data = response_json['data']
-        assert data['id'] == new_risk_type_with_attribute.id
-        assert data['name'] == new_risk_type_with_attribute.name
-        assert len(data['customAttributes']) == 3
+        assert data['id'] == new_risk_type_with_attribute1.id
+        assert data['name'] == new_risk_type_with_attribute1.name
+        assert len(data['customAttributes']) == len(new_risk_type_with_attribute1.attributes.all())
+
+
+    def test_delete_a_risk_type_succeeds(
+            self, client, init_db, user_one, new_risk_type):
+        """
+        Args:
+            client(FlaskClient): fixture to get flask test client
+            init_db(SQLAlchemy): fixture to initialize the test database
+            user_one (User): Fixture to create a new user
+            new_risk_type (RiskType): Fixture to create a new risk type
+        """
+
+        response = client.delete(
+            f'{BASE_URL}/risk-types/{new_risk_type.id}', 
+            headers=dict(
+                Authorization=f'Bearer {user_one.token}'
+            ))
+            
+        response_json = json.loads(response.data.decode())
+        assert response.status_code == 200
+        assert response_json['status'] == 'success'
+        assert response_json['message'] == SUCCESS_MESSAGES['DELETED'].format('Risk Type')
+
+    def test_delete_a_risk_type_with_attributes_succeeds(
+            self, client, init_db, user_one, new_risk_type_with_attribute):
+        """
+        Args:
+            client(FlaskClient): fixture to get flask test client
+            init_db(SQLAlchemy): fixture to initialize the test database
+            user_one (User): Fixture to create a new user
+            new_risk_type_with_attribute (RiskType): Fixture to create a new risk type
+        """
+
+        response = client.delete(
+            f'{BASE_URL}/risk-types/{new_risk_type_with_attribute.id}', 
+            headers=dict(
+                Authorization=f'Bearer {user_one.token}'
+            ))
+            
+        response_json = json.loads(response.data.decode())
+        assert response.status_code == 200
+        assert response_json['status'] == 'success'
+        assert response_json['message'] == SUCCESS_MESSAGES['DELETED'].format('Risk Type')
+
+    
+    def test_delete_a_risk_type_with_risks_fails(
+            self, client, init_db, user_one, new_multiple_risks):
+        """
+        Args:
+            client(FlaskClient): fixture to get flask test client
+            init_db(SQLAlchemy): fixture to initialize the test database
+            user_one (User): Fixture to create a new user
+            new_multiple_risks1 (Risk): Fixture to create a new multiple risk
+        """
+        risk = new_multiple_risks[0]
+
+        response = client.delete(
+            f'{BASE_URL}/risk-types/{risk.risk_type_id}', 
+            headers=dict(
+                Authorization=f'Bearer {user_one.token}'
+            ))
+            
+        response_json = json.loads(response.data.decode())
+        assert response.status_code == 400
+        assert response_json['status'] == 'error'

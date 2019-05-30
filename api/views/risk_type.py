@@ -9,7 +9,7 @@ from main import api
 from api.models import RiskType
 
 # Schemas
-from api.schemas import RiskTypeSchema, AttributeSchema, EagerLoadRiskTypeAttributesSchema
+from api.schemas import RiskTypeSchema, RiskSchema, AttributeSchema, EagerLoadRiskTypeAttributesSchema
 from api.decorators import token_required
 
 from api.constants.messages import SUCCESS_MESSAGES, ERROR_MESSAGES
@@ -32,7 +32,7 @@ class RiskTypeResource(Resource):
         Payload should have the following parameters:
             name(str): name of the risk-type
         """
-        # import pdb; pdb.set_trace()
+
         request_data = request.get_json()
 
         request_data['companyId'] = request.decoded_token.get('sub').get('company')['id']
@@ -57,7 +57,6 @@ class RiskTypeResource(Resource):
             raise ValidationError(
                 {'message': ERROR_MESSAGES['PROVIDE_CUSTOM_ATTRIBUTES']})
 
-        # import pdb; pdb.set_trace()
         risk_type = risk_type.save()
 
         return {
@@ -71,9 +70,10 @@ class RiskTypeResource(Resource):
         """
         Gets risk-type list
         """
+
         risk_types = RiskType.filter(company_id=request.decoded_token.get('sub').get('company')['id'])
 
-        risk_type_schema = RiskTypeSchema(many=True)
+        risk_type_schema = EagerLoadRiskTypeAttributesSchema(many=True)
 
         return (
             {
@@ -102,6 +102,24 @@ class SingleRiskTypeResource(Resource):
             {
                 "data": EagerLoadRiskTypeAttributesSchema().dump(risk_type).data,
                 "message": SUCCESS_MESSAGES["FETCHED"].format("Risk Type"),
+                "status": "success",
+            },
+            200,
+        )
+
+    @token_required
+    def delete(self, risk_type_id):
+        """
+        Delete a single risk type
+        """
+
+        risk_type = RiskType.get_or_404(risk_type_id)
+
+        risk_type.delete()
+
+        return (
+            {
+                "message": SUCCESS_MESSAGES["DELETED"].format("Risk Type"),
                 "status": "success",
             },
             200,
@@ -148,3 +166,29 @@ class SingleRiskTypeResource(Resource):
 
         response.status_code = 200
         return response
+
+
+@api.route('/risk-types/<int:risk_type_id>/risks')
+class SingleRiskTypeRisksResource(Resource):
+    """Resource class for carrying out operations on a single risk type"""
+
+    @token_required
+    def get(self, risk_type_id):
+        """
+        Get a single risk type risks
+        """
+        
+        risk_type = RiskType.get_or_404(risk_type_id)
+
+        risks = risk_type.risks.all()
+
+        risk_schema = RiskSchema(many=True)
+
+        return (
+            {
+                "data": risk_schema.dump(risks).data,
+                "message": SUCCESS_MESSAGES["FETCHED"].format("Risks"),
+                "status": "success",
+            },
+            200,
+        )

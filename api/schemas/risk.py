@@ -71,8 +71,3 @@ class RiskSchema(BaseSchema):
                 'message': ERROR_MESSAGES['BAD_DATA_ATTRIBUTE'],
                 'error' : errors
             }, 400)
-
-
-    @staticmethod
-    def collate_attribute_not_related_errors():
-        

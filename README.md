@@ -200,5 +200,12 @@ An `htmlcov` directory will be created, get the `index.html` file by entering th
 
 Find below a guide on how to use the app.
 
+- Login Credentials:
+url to project: www.sample.com
+email: example@sample.com
+password: example1234
+
+
+
 
 I hope you find my concept of solving this peculiar problem helpful. :)

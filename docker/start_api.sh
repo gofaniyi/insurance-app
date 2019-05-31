@@ -13,7 +13,7 @@ sleep 20
 flask db upgrade
 
 # Seed database
-# flask seed
+flask seed
 
 sleep 10
 echo "<<<<<<< Database Setup and Migrations Complete >>>>>>>>>>"

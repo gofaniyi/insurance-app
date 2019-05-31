@@ -1,7 +1,7 @@
 """Module with application entry point."""
 
 # Third party Imports
-import sys
+import sys, click
 import requests
 from os import environ
 
@@ -36,6 +36,27 @@ def template():
 def health_check():
     """Checks the health of application and returns 'Health App Server' as json."""
     return jsonify(dict(message='Healthy App Server')), 200
+
+@app.cli.command(context_settings=dict(token_normalize_func=str.lower))
+def seed():
+    """
+    Seeds the database with sample data
+
+    Return:
+        func: call the function if successful or the click help option if unsuccesful
+    """
+    g.seed = 'seeding'
+    print('Seeding Company data')
+
+    from api.models import Company
+    data = [
+        {'name' : 'Nigeria Insurance'},
+    ]
+    try:
+        Company.bulk_create(data)
+    except:
+        pass
+    print('Seeded Company data')
 
 if __name__ == '__main__':
     app.run()

@@ -5,17 +5,13 @@
 
 An assessement to solve the problems of managing different forms of Insurance
 
-## Technology Stack - BackEnd
+## Problem statement and Objective
 
-- Flask
-- Flask RestPlus
-- Marshmallow
-- JWT
-- Pytest
+Create a simple solution to solve for the rigid system around creating different Insurance risks for 
+different customers in different industries.
 
 
 ## Description
-
 
 The **insurance-app** is the backbone of an application for managing different forms of Insurance risks assets for BriteCore customers. The project is divided into two parts. The Frontend build on **VueJs - Javascript** and the Backend built on **Flask - Python**.
 
@@ -24,6 +20,8 @@ The **insurance-app** is the backbone of an application for managing different f
 
 1. Risk Type Management
 2. Creation of Risks
+3. User Authentication
+4. User Registration
 
 
 - FrontEnd
@@ -34,6 +32,47 @@ The FrontEnd is a VueJs application that I am serving as static pages through th
 - BackEnd
 
 The api built on Flask Rest API Framework, provides features for registering different forms of Insurance risks. This bothers around being able to set up risk-types with dynamic/custom attributes.
+
+## Development Approach
+
+Making the assumption that a Risk is created under a Risk Type category. Risk Type object have the ability to store 
+the custom attributes that will be defined when creating these risks.
+
+- Database Setup & Entity Relationship
+The following tables were designed to manage the concept of these solution.
+1. Companies
+2. Users
+3. RiskTypes
+4. Attribute
+5. Risks
+* Here is a link to the folder that contains the ORM classes for these tables. 
+* Here is also a link to the image that shows the entity relationship diagram
+
+
+## Other aspects of development
+
+- Authentication: 
+The authentication workflow works as follows:
+
+1. Client provides email and password, which is sent to the server
+2. Server then verifies that email and password are correct and responds with an auth token
+3. Client stores the token and sends it along with all subsequent requests to the API
+4. Server decodes the token and validates it
+5. This cycle repeats until the token expires or is revoked. In the latter case, the server issues a new token.
+
+- User Administration & Account Management
+
+Seeing that different customers will have their accounts provisioned and manage their Risk Types differently. I have also designed the application to manage the Signing up of Users. Although companies are seeded into the database and you
+can make your selection while creating your user account.
+
+
+## Technology Stack - BackEnd
+
+- Flask
+- Flask RestPlus
+- Marshmallow
+- JSON Web Token
+- Pytest
 
 
 ###  Setting Up For Local Development
@@ -156,3 +195,10 @@ An `htmlcov` directory will be created, get the `index.html` file by entering th
 
 ## Deployment to AWS Lambda using Zappa
 
+
+## Demo
+
+Find below a guide on how to use the app.
+
+
+I hope you find my concept of solving this peculiar problem helpful. :)

@@ -131,7 +131,7 @@ can make your selection while creating your user account.
     JWT_SECRET_KEY="" # Generate your secret key. You can use this code snippet below to generate it
     ```
 
--   Generate Secret Key
+-   How to generate a Secret Key
     ```
     import os
     secret_key = os.urandom(24)
@@ -195,17 +195,19 @@ An `htmlcov` directory will be created, get the `index.html` file by entering th
 
 ## Deployment to AWS Lambda using Zappa
 
+- Here is a link to the deployed version of the project: 
 
 ## Demo
 
 Find below a guide on how to use the app.
 
-- Login Credentials:
-url to project: www.sample.com
+## Login Credentials:
+
 email: example@sample.com
 password: example1234
 
 
 
 
-I hope you find my concept of solving this peculiar problem helpful. :)
+
+I hope you find my concept of solving this problem helpful. :)

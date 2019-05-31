@@ -22,10 +22,15 @@ app = create_app(AppConfig)
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def redirect_all(path):
-    if app.debug:
+    if AppConfig.DEBUG:
         return requests.get('http://localhost:8080/{}'.format(path)).text
     return render_template("index.html")
 
+
+@app.route('/bus')
+def template():
+    """Checks the health of application and returns 'Health App Server' as json."""
+    return render_template("index.html")
 
 @app.route('/health')
 def health_check():

@@ -26,8 +26,9 @@ def initialize_errorhandlers(application):
 
 def create_app(config=AppConfig):
     """Return app object given config object."""
-    app = Flask(__name__, static_folder = "./dist/static",
-            template_folder = "./dist")
+    app = Flask(__name__, static_folder = "client/dist",
+            template_folder = "client/dist")
+    # app = Flask(__name__)
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.config.from_object(config)
 
@@ -47,11 +48,6 @@ def create_app(config=AppConfig):
     migrate = Migrate(app, db)
 
     return app
-
-
-# app = create_app(AppConfig)
-
-# bcrypt = Bcrypt(app)
 
 @api.errorhandler(ValidationError)
 @exception_blueprint.app_errorhandler(ValidationError)

@@ -39,14 +39,18 @@ export default new Vuex.Store({
         setCompanies(state, payload) {
             state.companies = payload;
         },
-        setRiskTypes(state, payload){
+        setRiskTypes(state, payload) {
             state.riskTypes = payload;
         }
     },
     actions: {
         userLogin({ state, commit }, { email, password }) {
             let path = `${state.api}` + '/users/login';
-            axios.post(path, {email : email, password : password})
+            axios
+                .post(path, {
+                    email: email,
+                    password: password
+                })
                 .then(res => {
                     let data = res.data.data;
                     let user = data.user;
@@ -55,7 +59,7 @@ export default new Vuex.Store({
                     commit('setIsAuthenticated', true);
                     router.push('/risk-types');
                 })
-                .catch((error) => {
+                .catch(error => {
                     if (error.response) {
                         if (error.response.status == 401) {
                             alert(error.response.data.message);
@@ -67,10 +71,14 @@ export default new Vuex.Store({
                     router.push('/');
                 });
         },
-        userRegister({ state, commit }, {companyId, email, password }) {
-
+        userRegister({ state, commit }, { companyId, email, password }) {
             let path = `${state.api}` + '/users/signup';
-            axios.post(path, { companyId: companyId, email : email, password : password })
+            axios
+                .post(path, {
+                    companyId: companyId,
+                    email: email,
+                    password: password
+                })
                 .then(res => {
                     let data = res.data.data;
                     let user = data.user;
@@ -79,7 +87,7 @@ export default new Vuex.Store({
                     commit('setIsAuthenticated', true);
                     router.push('/risk-types');
                 })
-                .catch((error) => {
+                .catch(error => {
                     if (error.response) {
                         if (error.response.status == 409) {
                             alert(error.response.data.message);
@@ -94,7 +102,7 @@ export default new Vuex.Store({
         userSignOut({ state, commit }) {
             let headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + state.user.token
+                Authorization: 'Bearer ' + state.user.token
             };
 
             let path = `${state.api}` + '/users/logout';
@@ -103,79 +111,83 @@ export default new Vuex.Store({
             commit('setIsAuthenticated', false);
             router.push('/');
         },
-        updateRiskType({ state, commit }, payload) {
+        updateRiskType({ state }, payload) {
             let headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + state.user.token
+                Authorization: 'Bearer ' + state.user.token
             };
 
             let path = `${state.api}` + '/risk-types/' + payload.id;
 
-            axios.put(path, payload, { headers: headers })
-                .then(res => {
+            axios
+                .put(path, payload, { headers: headers })
+                .then(() => {
                     alert('Risk type updated successfully');
                     router.push('/risk-types');
                 })
-                .catch((error) => {
+                .catch(error => {
                     if (error.response) {
                         alert(error.response.data.message);
                         return;
                     }
                 });
         },
-        addRiskType({ state, commit }, payload) {
+        addRiskType({ state }, payload) {
             let headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + state.user.token
+                Authorization: 'Bearer ' + state.user.token
             };
 
             let path = `${state.api}` + '/risk-types';
 
-            axios.post(path, payload, { headers: headers })
-                .then(res => {
+            axios
+                .post(path, payload, { headers: headers })
+                .then(() => {
                     alert('Risk type created successfully');
                     router.push('/risk-types');
                 })
-                .catch((error) => {
+                .catch(error => {
                     if (error.response) {
                         alert(error.response.data.message);
                         return;
                     }
                 });
         },
-        addRisk({ state, commit }, payload) {
+        addRisk({ state }, payload) {
             let headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + state.user.token
+                Authorization: 'Bearer ' + state.user.token
             };
 
             let path = `${state.api}` + '/risks';
 
-            axios.post(path, payload, { headers: headers })
-                .then(res => {
+            axios
+                .post(path, payload, { headers: headers })
+                .then(() => {
                     alert('Risk created successfully');
                     router.push('/risk-types');
                 })
-                .catch((error) => {
+                .catch(error => {
                     if (error.response) {
                         alert(error.response.data.message);
                         return;
                     }
                 });
         },
-        deleteRiskType({ state, commit }, riskTypeId) {
+        deleteRiskType({ state }, riskTypeId) {
             let headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + state.user.token
+                Authorization: 'Bearer ' + state.user.token
             };
 
             let path = `${state.api}` + '/risk-types/' + riskTypeId;
-            axios.delete(path, { headers: headers })
-                .then(res => {
+            axios
+                .delete(path, { headers: headers })
+                .then(() => {
                     alert('Risk type deleted successfully');
                     router.go();
                 })
-                .catch((error) => {
+                .catch(error => {
                     if (error.response) {
                         alert(error.response.data.message);
                         return;
@@ -184,26 +196,20 @@ export default new Vuex.Store({
         },
         getCompanies({ state, commit }) {
             let path = `${state.api}` + '/companies';
-            return axios.get(path)
-                .then(res => {
-                    commit('setCompanies', res.data.data);
-                })
-                .catch((error) => {
-                });
+            return axios.get(path).then(res => {
+                commit('setCompanies', res.data.data);
+            });
         },
         getRiskTypes({ state, commit }) {
             let path = `${state.api}` + '/risk-types';
             let headers = {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + state.user.token
+                Authorization: 'Bearer ' + state.user.token
             };
 
-            return axios.get(path, { headers: headers })
-                .then(res => {
-                    commit('setRiskTypes', res.data.data);
-                })
-                .catch((error) => {
-                });
+            return axios.get(path, { headers: headers }).then(res => {
+                commit('setRiskTypes', res.data.data);
+            });
         }
     },
     getters: {

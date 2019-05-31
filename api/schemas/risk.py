@@ -54,8 +54,6 @@ class RiskSchema(BaseSchema):
 
         attributes = risk_type.attributes.all()
 
-        
-
         errors = {}
         for attribute in attributes:
             if not attribute.is_required and attribute._key not in data:
@@ -75,3 +73,6 @@ class RiskSchema(BaseSchema):
             }, 400)
 
 
+    @staticmethod
+    def collate_attribute_not_related_errors():
+        

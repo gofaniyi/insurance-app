@@ -45,6 +45,8 @@ The following tables were designed to manage the concept of these solution.
 3. RiskTypes
 4. Attribute
 5. Risks
+The relationship between these tables is explained in the entity relation diagram below
+![alt text](https://i.ibb.co/k1p2hLf/Entity-Relationship-Diagram.png)
 * Here is a link to the folder that contains the ORM classes for these tables. 
 * Here is also a link to the image that shows the entity relationship diagram
 

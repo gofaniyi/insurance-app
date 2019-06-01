@@ -197,6 +197,28 @@ To further view the lines not tested or covered if there is any,
 
 An `htmlcov` directory will be created, get the `index.html` file by entering the directory and view it in your browser.
 
+## Set Up Development With Docker
+
+1. Download Docker from [here](https://docs.docker.com/)
+2. Set up an account to download Docker
+3. Install Docker after download
+4. Go to your terminal run the command `docker login`
+5. Input your Docker email and password
+
+To setup for development with Docker after cloning the repository please do/run the following commands in the order stated below:
+
+-   `cd <project dir>` to check into the dir
+-   `docker-compose build` or `make build` to build the application images
+-   `docker-compose up -d` or `make start` or `make start_verbose` to start the api after the previous command is successful
+
+The `docker-compose build` or `make build` command builds the docker image where the api and its postgres database would be situated.
+Also this command does the necessary setup that is needed for the API to connect to the database.
+
+The `docker-compose up -d` or `make start` command starts the application while ensuring that the postgres database is seeded before the api starts.
+
+The `make start_verbose` command starts the api verbosely to show processes as the container spins up providing for the visualization of errors that may arise.
+
+To stop the running containers run the command `docker-compose down` or `make stop`
 
 ## Deployment to AWS Lambda using Zappa
 
@@ -208,10 +230,13 @@ Find below a guide on how to use the app.
 
 ## Login Credentials:
 
-email: example@sample.com
-password: example1234
+* email: example@sample.com
+* password: example1234
 
 
+## Other deliverables
+
+1. Link to the debugging quiz is [here](https://github.com/gofaniyi/insurance-app/blob/master/quiz.py)
 
 
 

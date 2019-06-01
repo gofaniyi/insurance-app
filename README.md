@@ -48,6 +48,7 @@ The following tables were designed to manage the concept of these solution.
 The relationship between these tables is explained in the entity relation diagram below
 
 * Entity Relationship Diagram
+
 ![alt text](https://image.prntscr.com/image/_xNnSioyRAiRUEdjv79igw.png)
 
 
@@ -220,9 +221,14 @@ The `make start_verbose` command starts the api verbosely to show processes as t
 
 To stop the running containers run the command `docker-compose down` or `make stop`
 
-## Deployment to AWS ECS using Fargate
+## Deployment to AWS ECS using AWS Fargate
 
 - Here is a link to the deployed version of the project: 
+
+* Landing Page
+
+![alt text](https://image.prntscr.com/image/uPoMnk0CRPaYXEtiEqXFsw.png)
+
 
 ## Demo
 

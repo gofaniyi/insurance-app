@@ -45,26 +45,35 @@ def seed():
     Return:
         func: call the function if successful or the click help option if unsuccesful
     """
-    g.seed = 'seeding'
     print('Seeding Company data')
 
-    from api.models import Company
-    data = [
-        {'name' : 'Nigeria Insurance'},
+    companies_data = [
+        {'name' : 'Integrated Insurance'},
+        {'name' : 'Insurance Institute'}
     ]
 
-    user_data = [
-        {'email' : 'example@sample.com'},
-        {'email' : 'britecore@sample.com'}
+    users_data = [
+        {'email' : 'example@sample.com', 'password' : 'example1234'},
+        {'email' : 'britecore@sample.com', 'password' : 'britecore1234'}
     ]
+
+    for index, company_data in enumerate(companies_data):
+        create_entry(company_data, users_data[index])
+
+    print('Seeded Company data')
+
+def create_entry(company_data, user_data):
+    from api.models import Company, User
+
     try:
-        company = Company(**data)
+        company = Company(**company_data)
         company.save()
 
-
-    except:
+        user = User(**dict(company_id=company.id, **user_data))
+        user.save()
+    except Exception as e:
+        print(e)
         pass
-    print('Seeded Company data')
 
 if __name__ == '__main__':
     app.run()

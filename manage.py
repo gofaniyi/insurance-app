@@ -52,8 +52,16 @@ def seed():
     data = [
         {'name' : 'Nigeria Insurance'},
     ]
+
+    user_data = [
+        {'email' : 'example@sample.com'},
+        {'email' : 'britecore@sample.com'}
+    ]
     try:
-        Company.bulk_create(data)
+        company = Company(**data)
+        company.save()
+
+
     except:
         pass
     print('Seeded Company data')

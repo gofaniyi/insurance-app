@@ -227,13 +227,13 @@ To stop the running containers run the command `docker-compose down` or `make st
 ## Demo
 
 Find below a guide on how to use the app.
-1. [User Authentication]()
-2. Create a Risk Type
-3. View all risk types
-3. Edit a Risk Type
-4. Delete a risk type
-5. Create a risk under a risk type
-6. View all risks under a risk type
+1. [User Authentication](https://github.com/gofaniyi/insurance-app/blob/master/documentation/User_Authentication.md)
+2. [Create Risk Types](https://github.com/gofaniyi/insurance-app/blob/master/documentation/Create_Risk_Types.md)
+3. [View Risk Types](https://github.com/gofaniyi/insurance-app/blob/master/documentation/View_Risk_Types.md)
+3. [Edit Risk Types](https://github.com/gofaniyi/insurance-app/blob/master/documentation/Edit_Risk_Types.md)
+4. [Delete Risk Types](https://github.com/gofaniyi/insurance-app/blob/master/documentation/Delete_Risk_Types.md)
+5. [Create Risks under a Risk Type](https://github.com/gofaniyi/insurance-app/blob/master/documentation/Create_Risks.md)
+6. [View Risks under a Risk Type](https://github.com/gofaniyi/insurance-app/blob/master/documentation/View_Risks.md)
 
 ## Login Credentials:
 

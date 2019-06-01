@@ -227,6 +227,13 @@ To stop the running containers run the command `docker-compose down` or `make st
 ## Demo
 
 Find below a guide on how to use the app.
+1. [User Authentication]()
+2. Create a Risk Type
+3. View all risk types
+3. Edit a Risk Type
+4. Delete a risk type
+5. Create a risk under a risk type
+6. View all risks under a risk type
 
 ## Login Credentials:
 

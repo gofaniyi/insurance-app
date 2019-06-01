@@ -199,7 +199,7 @@ An `htmlcov` directory will be created, get the `index.html` file by entering th
 
 ## Set Up Development With Docker
 
-1. Download Docker from [here](https://docs.docker.com/)
+1. Download Docker from ![here](https://docs.docker.com/)
 2. Set up an account to download Docker
 3. Install Docker after download
 4. Go to your terminal run the command `docker login`
@@ -220,7 +220,7 @@ The `make start_verbose` command starts the api verbosely to show processes as t
 
 To stop the running containers run the command `docker-compose down` or `make stop`
 
-## Deployment to AWS Lambda using Zappa
+## Deployment to AWS ECS using Fargate
 
 - Here is a link to the deployed version of the project: 
 

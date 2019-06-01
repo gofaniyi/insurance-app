@@ -1,5 +1,8 @@
 ## View Risk Types
 
-When a user account creates various risk types, all the created risk types can be seen.
+When a user account creates different risks under a risk type
 
-[![user_login.gif](https://s3.gifyu.com/images/user_login.gif)](https://gifyu.com/image/9yoz)
+![alt text](https://image.prntscr.com/image/zlNbynUqQYyAyoRMNKGZXQ.png)
+
+![alt text](https://image.prntscr.com/image/lXibz5vZQc635pDUuOLxPw.png)
+

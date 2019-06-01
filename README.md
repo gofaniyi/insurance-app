@@ -51,7 +51,7 @@ The relationship between these tables is explained in the entity relation diagra
 ![alt text](https://image.prntscr.com/image/_xNnSioyRAiRUEdjv79igw.png)
 
 
-* Here is a link ![alt text](https://github.com/gofaniyi/insurance-app/tree/master/api/models) to the folder that contains the ORM classes for these tables. 
+* Here is a link [ORM Classes](https://github.com/gofaniyi/insurance-app/tree/master/api/models) to the folder that contains the ORM classes for these tables. 
 
 
 ## Other aspects of development

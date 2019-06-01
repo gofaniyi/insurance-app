@@ -199,7 +199,7 @@ An `htmlcov` directory will be created, get the `index.html` file by entering th
 
 ## Set Up Development With Docker
 
-1. Download Docker from ![here](https://docs.docker.com/)
+1. Download Docker from [here](https://docs.docker.com/){target="_blank"}
 2. Set up an account to download Docker
 3. Install Docker after download
 4. Go to your terminal run the command `docker login`

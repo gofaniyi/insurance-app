@@ -26,7 +26,7 @@ The **insurance-app** is the backbone of an application for managing different f
 
 - FrontEnd
 
-The FrontEnd is a VueJs application that I am serving as static pages through the Flask application. For more information on the Frontend development, please read more here
+The FrontEnd is a VueJs application that I am serving as static pages through the Flask application. Due to the size of the frontend, it is hosted in a ![separate repository](https://github.com/gofaniyi/insurance-web). Only the static files are hosted in this repository. See [static files](https://github.com/gofaniyi/insurance-app/tree/master/dist)
 
 
 - BackEnd

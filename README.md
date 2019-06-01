@@ -108,7 +108,7 @@ can make your selection while creating your user account.
     >> postgres (PostgreSQL) 10.1
     ```
 
--   Clone the activo-api repo and cd into it:
+-   Clone the insurance-app repo and cd into it:
 
     ```
     git clone https://github.com/insurance-app.git

@@ -15,7 +15,7 @@ class Config(object):
     """App base configuration."""
 
     SQLALCHEMY_DATABASE_URI = getenv(
-        'DATABASE_URI', default='postgresql://localhost/activo')
+        'DATABASE_URI', default='postgresql://localhost/insurance')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False
     TESTING = False

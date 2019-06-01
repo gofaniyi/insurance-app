@@ -49,7 +49,7 @@ The relationship between these tables is explained in the entity relation diagra
 
 * Entity Relationship Diagram
 
-![alt text](https://image.prntscr.com/image/_xNnSioyRAiRUEdjv79igw.png)
+![alt text](https://image.prntscr.com/image/sl4JJUqvRc21vlvPdrHHHg.png)
 
 
 * Here is a link [ORM Classes](https://github.com/gofaniyi/insurance-app/tree/master/api/models) to the folder that contains the ORM classes for these tables. 
@@ -227,7 +227,7 @@ To stop the running containers run the command `docker-compose down` or `make st
 
 * Landing Page
 
-![alt text](https://image.prntscr.com/image/uPoMnk0CRPaYXEtiEqXFsw.png)
+![alt text](https://image.prntscr.com/image/8BHnRsncR8yIqRRLV1z6bQ.png)
 
 
 ## Demo

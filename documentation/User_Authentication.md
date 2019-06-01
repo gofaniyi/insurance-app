@@ -1,6 +1,7 @@
 ## User Login
 
-Using a registered account, you can login into the application. The application valida
+Using a registered account, you can login into the application. The application validates the email and
+password provided against the users registered on the database
 
 [![user_login.gif](https://s3.gifyu.com/images/user_login.gif)](https://gifyu.com/image/9yoz)
 

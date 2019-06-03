@@ -8,7 +8,7 @@ from api.constants.messages import (ERROR_MESSAGES,)
 class AuthToken:
 
     @staticmethod
-    def encode_auth_token(user, days=1):
+    def encode_auth_token(user, days=1, secret_key=AppConfig.JWT_SECRET_KEY):
         """
         Generates the Auth Token
         """
@@ -20,7 +20,7 @@ class AuthToken:
             }
             return (jwt.encode(
                 payload,
-                AppConfig.JWT_SECRET_KEY,
+                secret_key,
                 algorithm='HS256'
             )).decode('utf-8')
         except Exception as e:

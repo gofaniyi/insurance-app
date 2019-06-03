@@ -253,7 +253,7 @@ To stop the running containers run the command `docker-compose down` or `make st
 
 - Here is a link to the deployed version of the project: 
 
-https://vwuty59di1.execute-api.us-east-2.amazonaws.com/dev/
+https://26o7em6e31.execute-api.us-east-2.amazonaws.com/dev
 
 * Landing Page
 

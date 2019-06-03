@@ -5,12 +5,6 @@
         "runtime": "python3.6",
         "s3_bucket": "zappa-ok587zsna",
         "aws_region": "us-east-2",
-        "environment_variables" : {
-            "DATABASE_URI" : "postgres://eotliyzeqquoqh:2cee3ecd7ea8002e41bd0e097c115b2dcbc6494a89dddfaa5fba6d0db8596eb6@ec2-50-17-227-28.compute-1.amazonaws.com:5432/dag4k6op3nmm8b",
-            "API_BASE_URL_V1" : "/api/v1",
-            "JWT_SECRET_KEY" : "\\xfb*\\xae\\xef\\xe6\\xddn\\x9e\\xef\\xad\\xbc\\xdf\\xb4!;\\xed2X\\xe7?\\x86\\xc9\\x91\\x85",
-            "FLASK_ENV" : "development",
-            "AWS_BUCKET" : "zappa-ok587zsna"
-        }
+        "remote_env" : "s3://zappa-ok587zsna/lambda-env.json"
     }
 }

@@ -242,7 +242,7 @@ To stop the running containers run the command `docker-compose down` or `make st
     zappa deploy dev
     ```
 
--   Redeploy updates with zappa
+-   Redeploy updates/changes with zappa
 
     ```
     zappa update dev

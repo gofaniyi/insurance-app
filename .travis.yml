@@ -12,9 +12,12 @@ services:
 
 before_script:
   - psql -c 'create database insurance_test;' -U postgres
+  - mkdir -p tmp/
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > /tmp/cc-test-reporter
+  - chmod +x /tmp/cc-test-reporter 
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter.bin
-  - chmod +x ./cc-test-reporter.bin
-  - ./cc-test-reporter.bin before-build
+  # - chmod +x ./cc-test-reporter.bin
+  # - ./cc-test-reporter.bin before-build
 
 # command to install dependencies
 install:
@@ -22,11 +25,14 @@ install:
 
 # command to run tests
 script:
-  - pytest
+  # - pytest
+  - pytest --cov=api/ tests --cov-report xml
+  - /tmp/cc-test-reporter format-coverage coverage.xml -t "coverage.py" -o "tmp/cc.testreport.json"
 
 # Pipe the coverage data to Code Climate
 after_success:
-  - ./cc-test-reporter.bin after-build -t coverage.py  ./.coverage --exit-code $TRAVIS_TEST_RESULT
+  # - ./cc-test-reporter.bin after-build -t coverage.py  ./.coverage --exit-code $TRAVIS_TEST_RESULT
+  - /tmp/cc-test-reporter upload-coverage -i tmp/cc.testreport.json
 
 after_script:
   - zappa update dev

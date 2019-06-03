@@ -2,6 +2,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/ddb10332ab0cce466344/maintainability)](https://codeclimate.com/github/gofaniyi/insurance-api/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ddb10332ab0cce466344/test_coverage)](https://codeclimate.com/github/gofaniyi/insurance-api/test_coverage)
+[![Build Status](https://travis-ci.org/gofaniyi/insurance-app.svg?branch=master)](https://travis-ci.org/azu/travis-badge)
 
 An assessement to solve the problems of managing different forms of Insurance
 
@@ -250,7 +251,7 @@ To stop the running containers run the command `docker-compose down` or `make st
 
 ##  Continuous Deployments with Travis CI
     You must have initialized and performed initial deployment using zappa locally. My project uses Travis CI and deploys to AWS Lambda after CI passes.
-    
+
     Include the command below under the `after_success` block in the `.travis.yml` file
     ```
     zappa update dev

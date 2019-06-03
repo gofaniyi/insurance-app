@@ -222,9 +222,20 @@ The `make start_verbose` command starts the api verbosely to show processes as t
 
 To stop the running containers run the command `docker-compose down` or `make stop`
 
-## Deployment to AWS ECS using AWS Fargate
+## Deployment to AWS Lambda using Zappa
+
+-   Install zappa inside virtual environment:
+
+    ```
+    pip install zappa
+    ```
+
+-   
+
 
 - Here is a link to the deployed version of the project: 
+
+https://vwuty59di1.execute-api.us-east-2.amazonaws.com/dev/
 
 * Landing Page
 

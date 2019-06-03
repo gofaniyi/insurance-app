@@ -15,19 +15,19 @@ class Config(object):
     """App base configuration."""
 
     SQLALCHEMY_DATABASE_URI = getenv(
-        'DATABASE_URI', default='postgresql://gofaniyi:gofaniyi@gofaniyi.cuawszxylysg.us-east-2.rds.amazonaws.com:5432/insurance')
+        'DATABASE_URI', default='postgresql://postgres:backend@localhost:5433/insurance')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = False
     TESTING = False
     API_BASE_URL_V1 = getenv('API_BASE_URL_V1', default='/api/v1')
 
-    JWT_SECRET_KEY = getenv('JWT_SECRET_KEY', '\xfb*\xae\xef\xe6\xddn\x9e\xef\xad\xbc\xdf\xb4!;\xed2X\xe7?\x86\xc9\x91\x85')
+    JWT_SECRET_KEY = getenv('JWT_SECRET_KEY', '')
     BCRYPT_LOG_ROUNDS = 4
 
     # FLASK_ENV Configuration
     FLASK_ENV = getenv('FLASK_ENV', 'development')
 
-    FLASKS3_BUCKET_NAME= getenv('AWS_BUCKET', 'zappa-ok587zsna')
+    FLASKS3_BUCKET_NAME= getenv('AWS_BUCKET')
 
 class ProductionConfig(Config):
     """App production configuration."""
@@ -36,7 +36,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     """App development configuration."""
-    DEBUG = False
+    DEBUG = True
 
 
 class StagingConfig(Config):

@@ -26,7 +26,6 @@ def redirect_all(path):
         return requests.get('http://localhost:8080/{}'.format(path)).text
     return render_template("index.html")
 
-
 @app.route('/health')
 def health_check():
     """Checks the health of application and returns 'Health App Server' as json."""

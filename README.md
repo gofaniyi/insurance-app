@@ -222,7 +222,7 @@ The `make start_verbose` command starts the api verbosely to show processes as t
 
 To stop the running containers run the command `docker-compose down` or `make stop`
 
-## Deployment to AWS Lambda using Zappa
+## Local Deployment to AWS Lambda using Zappa
 
 -   Install zappa inside virtual environment:
 
@@ -247,6 +247,8 @@ To stop the running containers run the command `docker-compose down` or `make st
     ```
     zappa update dev
     ```
+
+##  Continuous Deployments with Travis
 
 
 - Here is a link to the deployed version of the project: 

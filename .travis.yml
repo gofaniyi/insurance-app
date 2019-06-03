@@ -1,7 +1,3 @@
-env:
-  global:
-    CC_TEST_REPORTER_ID=17177feea1988ceb9c70cf3ea2f9f8ca9f5ad14b684e94ea30b12a284d005c2d
-
 language: python
 
 python:
@@ -16,8 +12,6 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > /tmp/cc-test-reporter
   - chmod +x /tmp/cc-test-reporter 
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter.bin
-  # - chmod +x ./cc-test-reporter.bin
-  # - ./cc-test-reporter.bin before-build
 
 # command to install dependencies
 install:
@@ -25,13 +19,11 @@ install:
 
 # command to run tests
 script:
-  # - pytest
   - pytest --cov=api/ tests --cov-report xml
   - /tmp/cc-test-reporter format-coverage coverage.xml -t "coverage.py" -o "tmp/cc.testreport.json"
 
 # Pipe the coverage data to Code Climate
 after_success:
-  # - ./cc-test-reporter.bin after-build -t coverage.py  ./.coverage --exit-code $TRAVIS_TEST_RESULT
   - /tmp/cc-test-reporter upload-coverage -i tmp/cc.testreport.json
 
 after_script:

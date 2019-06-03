@@ -5,7 +5,7 @@ from flask import Flask, jsonify
 from flask_migrate import Migrate
 from flask_restplus import Api
 from flask_cors import CORS
-from flask_bcrypt import Bcrypt
+from flask_s3 import FlaskS3
 
 from api import api_blueprint
 from exception import exception_blueprint
@@ -17,6 +17,7 @@ from api.bcrypt import bcrypt
 api = Api(api_blueprint, doc=False)
 
 
+s3 = FlaskS3()
 
 def initialize_errorhandlers(application):
     ''' Initialize error handlers '''
@@ -26,8 +27,15 @@ def initialize_errorhandlers(application):
 
 def create_app(config=AppConfig):
     """Return app object given config object."""
-    app = Flask(__name__, static_folder = "dist/static",
-            template_folder = "dist")
+    #https://zappa-ok587zsna.s3.us-east-2.amazonaws.com
+    kwargs = dict(
+        template_folder='dist',
+        static_folder='dist/static',
+        # host_matching=True, 
+        # static_host='https://zappa-ok587zsna.s3.us-east-2.amazonaws.com',
+    )
+
+    app = Flask(__name__, **kwargs)
 
     CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.config.from_object(config)
@@ -41,6 +49,8 @@ def create_app(config=AppConfig):
     db.init_app(app)
 
     bcrypt.init_app(app)
+
+    s3.init_app(app)
 
     import api.views
 

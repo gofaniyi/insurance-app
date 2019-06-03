@@ -76,6 +76,7 @@ can make your selection while creating your user account.
 
 - Flask
 - Flask RestPlus
+- SQLAlchemy
 - Marshmallow
 - JSON Web Token
 - Pytest

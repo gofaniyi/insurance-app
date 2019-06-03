@@ -2,7 +2,7 @@
 
 # Third party Imports
 import sys, click
-import requests
+import requests, flask_s3
 from os import environ
 
 import click
@@ -26,11 +26,6 @@ def redirect_all(path):
         return requests.get('http://localhost:8080/{}'.format(path)).text
     return render_template("index.html")
 
-
-@app.route('/bus')
-def template():
-    """Checks the health of application and returns 'Health App Server' as json."""
-    return render_template("index.html")
 
 @app.route('/health')
 def health_check():
@@ -61,6 +56,23 @@ def seed():
         create_entry(company_data, users_data[index])
 
     print('Seeded Company data')
+
+
+
+
+@app.cli.command(context_settings=dict(token_normalize_func=str.lower))
+def upload():
+    """
+    upload static files to s3
+
+    Return:
+        func: call the function if successful or the click help option if unsuccesful
+    """
+    print('Uploading static files to S3....')
+
+    flask_s3.create_all(app)
+
+    print('Uploaded static files to S3.....')
 
 def create_entry(company_data, user_data):
     from api.models import Company, User

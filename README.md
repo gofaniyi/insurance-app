@@ -230,7 +230,23 @@ To stop the running containers run the command `docker-compose down` or `make st
     pip install zappa
     ```
 
--   
+-   Initialize project with zappa
+
+    ```
+    zappa init
+    ```
+
+-   Deploy project with zappa
+
+    ```
+    zappa deploy dev
+    ```
+
+-   Redeploy updates with zappa
+
+    ```
+    zappa update dev
+    ```
 
 
 - Here is a link to the deployed version of the project: 

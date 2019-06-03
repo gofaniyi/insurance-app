@@ -12,4 +12,3 @@ insurance_db
 .coverage*
 htmlcov
 .coverage*
-zappa_settings.json

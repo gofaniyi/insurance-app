@@ -141,13 +141,3 @@ def db_drop_all(db):
 
     db.engine.execute("DROP TABLE IF EXISTS alembic_version CASCADE")
     db.engine.execute("DROP SEQUENCE IF EXISTS requests_id_seq CASCADE")
-
-    # sequences = [
-    #     'assignee_type', 'frequencytypesenum', 'requeststatusenum',
-    #     'schedulestatusenum', 'hotdeskrequeststatusenum', 'frequencyenum',
-    #     'statusenum', 'parenttype'
-    # ]
-
-    # sequences_ = ','.join(sequences)
-    # sql = f'DROP TYPE IF EXISTS {sequences_} CASCADE'
-    # db.engine.execute(sql)

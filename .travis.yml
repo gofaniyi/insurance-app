@@ -16,17 +16,17 @@ before_script:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
-  - touch .env
+  - echo "FLASK_ENV=development \n FLASK_APP=manage.py \n FLASKS3_BUCKET_NAME=zappa-ok587zsna" > .env
 
 # command to run tests
 script:
   - pytest --cov=api/ tests --cov-report xml
   - /tmp/cc-test-reporter format-coverage coverage.xml -t "coverage.py" -o "tmp/cc.testreport.json"
 
-# Pipe the coverage data to Code-Climate
-after_success:
-  - /tmp/cc-test-reporter upload-coverage -i tmp/cc.testreport.json
-
 after_script:
   - flask upload
   - zappa update dev
+
+# Pipe the coverage data to Code-Climate
+after_success:
+  - /tmp/cc-test-reporter upload-coverage -i tmp/cc.testreport.json

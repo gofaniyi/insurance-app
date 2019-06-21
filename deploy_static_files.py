@@ -4,7 +4,7 @@ from collections import namedtuple
 
 MyStruct = namedtuple('MyStruct', 'config static_folder static_url_path')
 
-def upload():
+def deploy():
     """
     upload static files to s3
 
@@ -25,4 +25,4 @@ def upload():
     print('Uploaded static files to S3.....')
 
 
-upload()
+deploy()

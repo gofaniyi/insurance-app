@@ -16,7 +16,7 @@ before_script:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
-  - echo "FLASK_ENV=development \n FLASK_APP=manage.py \n FLASKS3_BUCKET_NAME=zappa-ok587zsna" > .env
+  - echo "FLASK_ENV=development \nFLASK_APP=manage.py \nFLASKS3_BUCKET_NAME=zappa-ok587zsna" > .env
 
 # command to run tests
 script:

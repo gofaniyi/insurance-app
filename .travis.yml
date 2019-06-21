@@ -22,7 +22,7 @@ script:
   - pytest --cov=api/ tests --cov-report xml
   - /tmp/cc-test-reporter format-coverage coverage.xml -t "coverage.py" -o "tmp/cc.testreport.json"
 
-# Pipe the coverage data to Code Climate
+# Pipe the coverage data to Code-Climate
 after_success:
   - /tmp/cc-test-reporter upload-coverage -i tmp/cc.testreport.json
 

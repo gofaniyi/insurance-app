@@ -251,13 +251,13 @@ To stop the running containers run the command `docker-compose down` or `make st
 
 ##  Continuous Deployments with Travis CI
 
-    You must have initialized and performed initial deployment using zappa locally. My project uses Travis CI and deploys to AWS Lambda after CI passes.
+You must have initialized and performed initial deployment using zappa locally. 
+My project uses Travis CI and deploys to AWS Lambda after CI passes.
 
--   Include the command below under the `after_success` block in the `.travis.yml` file
+-   Include the command below under the `after_script` block in the `.travis.yml` file
 
     ```
     zappa update dev
-
     ```
 
     Ensure you remove the `profile_name` key from the `zappa_settings.json` file before pushing 

@@ -12,3 +12,4 @@ insurance_db
 .coverage*
 htmlcov
 .coverage*
+dist_copy

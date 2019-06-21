@@ -24,7 +24,7 @@ script:
   - /tmp/cc-test-reporter format-coverage coverage.xml -t "coverage.py" -o "tmp/cc.testreport.json"
 
 after_script:
-  - python upload_s3.py
+  - python deploy_static_files.py
   - zappa update dev
 
 # Pipe the coverage data to Code-Climate

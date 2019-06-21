@@ -257,13 +257,13 @@ My project uses Travis CI and deploys to AWS Lambda after CI passes.
 -   Include the command below under the `after_script` block in the `.travis.yml` file
 
     ```
-    python deploy_static_files.py
-    zappa update dev
+    - python deploy_static_files.py
+    - zappa update dev
     ```
 
     1. Here we are deploying the static files to Amazon S3
     2. We are also updating the AWS Lambda instance with the latest changes.
-    
+
     Ensure you remove the `profile_name` key from the `zappa_settings.json` file before pushing 
     to remote
 

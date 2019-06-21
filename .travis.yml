@@ -27,4 +27,5 @@ after_success:
   - /tmp/cc-test-reporter upload-coverage -i tmp/cc.testreport.json
 
 after_script:
+  - flask upload
   - zappa update dev

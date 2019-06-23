@@ -211,17 +211,15 @@ An `htmlcov` directory will be created, get the `index.html` file by entering th
 To setup for development with Docker after cloning the repository please do/run the following commands in the order stated below:
 
 -   `cd <project dir>` to check into the dir
--   `docker-compose build` or `make build` to build the application images
--   `docker-compose up -d` or `make start` or `make start_verbose` to start the api after the previous command is successful
+-   `docker-compose build` to build the application images
+-   `docker-compose up -d` to start the api after the previous command is successful
 
-The `docker-compose build` or `make build` command builds the docker image where the api and its postgres database would be situated.
+The `docker-compose build` command builds the docker image where the api and its postgres database would be situated.
 Also this command does the necessary setup that is needed for the API to connect to the database.
 
-The `docker-compose up -d` or `make start` command starts the application while ensuring that the postgres database is seeded before the api starts.
+The `docker-compose up -d` command starts the application while ensuring that the postgres database is seeded before the api starts.
 
-The `make start_verbose` command starts the api verbosely to show processes as the container spins up providing for the visualization of errors that may arise.
-
-To stop the running containers run the command `docker-compose down` or `make stop`
+To stop the running containers run the command `docker-compose down`
 
 ## Local Deployment to AWS Lambda using Zappa
 
